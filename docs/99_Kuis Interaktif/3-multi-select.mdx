@@ -1,0 +1,33 @@
+import MultiSelectQuiz from '@site/src/components/MultiSelectQuiz';
+
+# Kuis Multi Jawaban
+
+export const soalKuisMultiJawaban = [
+{
+question: "Manakah dari kata-kata berikut yang termasuk dalam kategori isim ma'rifah (kata benda definit)?",
+// instruction: "Pilih semua jawaban yang benar.",
+options: [
+{ text: "هَذَا (Isim Isyarah)", isCorrect: true },
+{ text: "كِتَابٌ (Isim Nakirah)", isCorrect: false },
+{ text: "مُحَمَّدٌ (Isim 'Alam / Nama Diri)", isCorrect: true },
+{ text: "الَّذِي (Isim Maushul)", isCorrect: true },
+],
+feedback: "Isim Ma'rifah mencakup Isim 'Alam (nama diri seperti Muhammad), Isim Isyarah (kata tunjuk seperti ini/itu), dan Isim Maushul (kata sambung). كِتَابٌ adalah isim nakirah (indefinit).",
+},
+{
+question: "Manakah dari kata-kata berikut yang termasuk dalam kategori isim ma'rifah (kata benda definit)?",
+// instruction: "Pilih semua jawaban yang benar.",
+options: [
+{ text: "هَذَا (Isim Isyarah)", isCorrect: true },
+{ text: "كِتَابٌ (Isim Nakirah)", isCorrect: false },
+{ text: "مُحَمَّدٌ (Isim 'Alam / Nama Diri)", isCorrect: true },
+{ text: "الَّذِي (Isim Maushul)", isCorrect: true },
+],
+feedback: "Isim Ma'rifah mencakup Isim 'Alam (nama diri seperti Muhammad), Isim Isyarah (kata tunjuk seperti ini/itu), dan Isim Maushul (kata sambung). كِتَابٌ adalah isim nakirah (indefinit).",
+},
+];
+
+<MultiSelectQuiz
+questions={soalKuisMultiJawaban}
+title="Kuis Identifikasi Kata (Data dari MDX)"
+/>

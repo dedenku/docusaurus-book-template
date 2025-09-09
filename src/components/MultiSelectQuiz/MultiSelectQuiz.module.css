@@ -1,0 +1,498 @@
+/* Import font Arab */
+@import url("https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Scheherazade+New:wght@400;700&display=swap");
+
+/* Variabel Warna Kustom untuk Status */
+:root {
+  --quiz-correct-color: var(--ifm-color-success);
+  --quiz-correct-bg: var(--ifm-color-success-lightest);
+  --quiz-incorrect-color: var(--ifm-color-danger);
+  --quiz-incorrect-bg: var(--ifm-color-danger-lightest);
+  --quiz-info-color: var(--ifm-color-info);
+  --quiz-info-bg: var(--ifm-color-info-lightest);
+}
+
+/* Container Utama Kuis */
+.quizContainer {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: clamp(1rem, 5vw, 2rem);
+  background: var(--ifm-background-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius-lg);
+  box-shadow: var(--ifm-global-shadow-lw);
+  font-family: var(--ifm-font-family-base);
+}
+
+/* Header */
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+  background: linear-gradient(
+    135deg,
+    var(--ifm-color-primary),
+    var(--ifm-color-primary-dark)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--ifm-color-content-secondary);
+  margin-top: 1rem;
+}
+
+.scoreInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  background-color: var(--ifm-color-emphasis-200);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--ifm-border-radius);
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--ifm-color-content-secondary);
+  font-size: 1.1rem;
+}
+
+/* Kartu Hasil Kuis */
+.resultsCard {
+  margin-bottom: 2.5rem;
+  padding: 2rem;
+  background: linear-gradient(
+    135deg,
+    var(--ifm-color-emphasis-100),
+    var(--ifm-color-emphasis-200)
+  );
+  border-radius: var(--ifm-border-radius-lg);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.scoreDisplay {
+  font-size: clamp(2.5rem, 10vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.scoreIcon {
+  animation: popIn 0.5s ease-out;
+}
+
+.scoreDisplay.excellent {
+  color: var(--quiz-correct-color);
+}
+.scoreDisplay.good {
+  color: var(--ifm-color-warning);
+}
+.scoreDisplay.needsImprovement {
+  color: var(--quiz-incorrect-color);
+}
+
+.scoreMessage {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ifm-color-content);
+  margin-bottom: 0.5rem;
+  font-family: "Amiri", serif;
+}
+
+.percentage {
+  font-size: 1rem;
+  color: var(--ifm-color-content-secondary);
+}
+
+/* Daftar Pertanyaan */
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Kartu Pertanyaan */
+.questionCard {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-border-radius-lg);
+  padding: 1.5rem;
+  background: var(--ifm-card-background-color);
+  box-shadow: var(--ifm-global-shadow-sm);
+  transition: all 0.3s ease;
+  border-left: 5px solid transparent;
+}
+
+.questionCard:hover {
+  border-color: var(--ifm-color-primary-light);
+  transform: translateY(-3px);
+  box-shadow: var(--ifm-global-shadow-md);
+}
+
+.questionCard.cardCorrect {
+  border-left-color: var(--quiz-correct-color);
+}
+.questionCard.cardIncorrect {
+  border-left-color: var(--quiz-incorrect-color);
+}
+
+.questionHeader {
+  margin-bottom: 1.5rem;
+}
+
+.questionContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.questionNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  background: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-content-secondary);
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.questionTextContainer {
+  flex: 1;
+  line-height: 1.7;
+}
+
+.questionText {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ifm-color-content);
+  margin: 0 0 0.75rem 0;
+}
+
+.arabicText {
+  font-family: "Amiri", "Scheherazade New", serif;
+  font-size: 1.5rem;
+  line-height: 2;
+  color: var(--ifm-color-content);
+  background: var(--ifm-color-emphasis-100);
+  padding: 1rem 1.5rem;
+  border-radius: var(--ifm-border-radius);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  margin: 1rem 0;
+  text-align: right;
+  direction: rtl;
+}
+
+.instruction {
+  font-size: 0.9rem;
+  color: var(--ifm-color-content-secondary);
+  font-style: italic;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: var(--ifm-border-radius);
+  border-left: 4px solid var(--ifm-color-emphasis-400);
+}
+
+/* PERUBAHAN UI: Info untuk multi-jawaban */
+.multiSelectInfo {
+  margin-top: 1rem;
+  margin-left: 3.2rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--ifm-color-emphasis-100);
+  border-radius: var(--ifm-border-radius);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ifm-color-content-secondary);
+}
+
+/* Opsi Jawaban */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-left: 3.2rem;
+}
+
+.option {
+  padding: 1rem;
+  border-radius: var(--ifm-border-radius);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: 2px solid transparent;
+}
+
+.option.selectable {
+  background: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-emphasis-300);
+}
+.option.selectable:hover {
+  background: var(--ifm-color-primary-lightest);
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+}
+.option.selected {
+  background: var(--ifm-color-primary-lightest);
+  border-color: var(--ifm-color-primary);
+}
+.option.correct {
+  background: var(--quiz-correct-bg);
+  border-color: var(--quiz-correct-color);
+  font-weight: 600;
+}
+.option.incorrect {
+  background: var(--quiz-incorrect-bg);
+  border-color: var(--quiz-incorrect-color);
+  opacity: 0.8;
+  animation: shake 0.4s ease-in-out;
+}
+.option.disabled {
+  background: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-content-secondary);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.optionContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.optionLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+/* PERUBAHAN UI: Styling untuk Checkbox */
+.checkbox {
+  width: 1.3rem;
+  height: 1.3rem;
+  border: 2px solid var(--ifm-color-emphasis-500);
+  border-radius: var(--ifm-border-radius-sm);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkIcon {
+  color: white;
+  transform: scale(0);
+  transition: transform 0.2s ease;
+}
+
+.checkboxSelected {
+  border-color: var(--ifm-color-primary);
+  background-color: var(--ifm-color-primary);
+}
+
+.checkboxSelected .checkIcon {
+  transform: scale(1);
+}
+
+.option.correct .checkbox {
+  border-color: var(--quiz-correct-color);
+}
+.option.incorrect .checkbox {
+  border-color: var(--quiz-incorrect-color);
+}
+
+.optionLabel {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ifm-color-content-secondary);
+}
+
+.optionTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.optionText {
+  color: var(--ifm-color-content);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.optionArabicText {
+  font-family: "Amiri", "Scheherazade New", serif;
+  font-size: 1.2rem;
+  color: var(--ifm-color-content);
+  direction: rtl;
+  text-align: right;
+  font-weight: 500;
+  background: var(--ifm-background-color);
+  padding: 0.5rem;
+  border-radius: var(--ifm-border-radius-sm);
+  border: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.statusIcon {
+  flex-shrink: 0;
+}
+.option.correct .statusIcon {
+  color: var(--quiz-correct-color);
+}
+.option.incorrect .statusIcon {
+  color: var(--quiz-incorrect-color);
+}
+
+/* Kotak Feedback */
+.feedback {
+  margin-top: 1.5rem;
+  margin-left: 3.2rem;
+  background: var(--quiz-info-bg);
+  border: 1px solid var(--ifm-color-info-light);
+  border-radius: var(--ifm-border-radius);
+  animation: fadeIn 0.5s ease;
+  overflow: hidden;
+}
+
+.feedbackHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--ifm-color-info-light);
+  color: var(--ifm-color-info-darkest);
+  font-weight: 600;
+}
+
+.feedbackContent {
+  font-size: 0.95rem;
+  color: var(--ifm-color-info-darkest);
+  line-height: 1.7;
+  padding: 1rem;
+  font-family: "Amiri", serif;
+}
+
+/* Tombol Aksi */
+.actions {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.button {
+  padding: 0.8rem 2rem;
+  border-radius: var(--ifm-border-radius);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-family: "Amiri", serif;
+  box-shadow: var(--ifm-global-shadow-sm);
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--ifm-global-shadow-md);
+}
+
+.submitButton {
+  background: var(--ifm-color-primary);
+  color: white;
+}
+.resetButton {
+  background: var(--ifm-color-success);
+  color: white;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes popIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+/* Desain Responsif */
+@media (max-width: 768px) {
+  .options,
+  .feedback,
+  .multiSelectInfo {
+    margin-left: 0;
+  }
+  .arabicText {
+    font-size: 1.3rem;
+  }
+  .optionArabicText {
+    font-size: 1.1rem;
+  }
+  .info {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+/* Penyesuaian Dark Mode */
+[data-theme="dark"] .arabicText,
+[data-theme="dark"] .optionArabicText {
+  background: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-400);
+}
