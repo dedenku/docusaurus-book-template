@@ -1,0 +1,126 @@
+---
+title: 6. Kuis Susun Kalimat
+sidebar_label: Susun Kalimat
+---
+
+import SentenceScrambleQuiz from '@site/src/components/SentenceScrambleQuiz';
+
+## Deskripsi
+
+`SentenceScrambleQuiz` adalah komponen kuis yang menantang pengguna untuk menyusun kalimat yang benar dari kata-kata yang telah diacak. Pengguna berinteraksi dengan mengklik kata-kata dari "kolam kata" untuk memindahkannya ke "kotak kalimat".
+
+Komponen ini disajikan dalam format *slider* atau *carousel*, di mana setiap soal ditampilkan satu per satu. Pengguna harus menjawab setiap soal sebelum dapat melanjutkan ke soal berikutnya, dan akan menerima umpan balik instan untuk setiap jawaban yang dikirim.
+
+## Contoh Implementasi
+
+```jsx
+const dataKuis = [
+  {
+    id: 'q1',
+    instruction: 'Susunlah kata-kata berikut menjadi sebuah "Jumlah Ismiyyah" (kalimat nominal) yang benar.',
+    words: ['الطَّالِبُ', 'مُجْتَهِدٌ'],
+    correctAnswers: ['الطَّالِبُ مُجْتَهِدٌ'],
+    feedback: 'Jumlah Ismiyyah biasanya dimulai dengan Isim (kata benda). Susunan yang benar adalah "الطَّالِبُ مُجْتَهِدٌ" (Siswa itu rajin).'
+  },
+  {
+    id: 'q2',
+    instruction: 'Susunlah kata-kata berikut menjadi sebuah "Jumlah Fi\'liyyah" (kalimat verbal) yang benar.',
+    words: ['الْكِتَابَ', 'التِّلْمِيْذُ', 'يَقْرَأُ'],
+    correctAnswers: ['يَقْرَأُ التِّلْمِيْذُ الْكِتَابَ'],
+    feedback: 'Jumlah Fi\'liyyah dimulai dengan Fi\'il (kata kerja). Susunan yang benar adalah "يَقْرَأُ التِّلْمِيْذُ الْكِتَابَ" (Siswa itu sedang membaca buku).'
+  },
+  {
+    id: 'q3',
+    instruction: 'Susun kata-kata berikut menjadi kalimat.',
+    words: ['is', 'sky', 'blue', 'The'],
+    correctAnswers: ['The sky is blue'],
+    feedback: 'Urutan standar dalam bahasa Inggris adalah Subjek - Predikat - Objek/Keterangan.'
+  }
+];
+
+<SentenceScrambleQuiz
+  questions={dataKuis}
+  title="Kuis Menyusun Kalimat Bahasa Arab"
+/>
+```
+
+### Hasil
+
+<SentenceScrambleQuiz
+  questions={[
+    {
+      id: 'q1',
+      instruction: 'Susunlah kata-kata berikut menjadi sebuah "Jumlah Ismiyyah" (kalimat nominal) yang benar.',
+      words: ['الطَّالِبُ', 'مُجْتَهِدٌ'],
+      correctAnswers: ['الطَّالِبُ مُجْتَهِدٌ'],
+      feedback: 'Jumlah Ismiyyah biasanya dimulai dengan Isim (kata benda). Susunan yang benar adalah "الطَّالِبُ مُجْتَهِدٌ" (Siswa itu rajin).'
+    },
+    {
+      id: 'q2',
+      instruction: 'Susunlah kata-kata berikut menjadi sebuah "Jumlah Fi\'liyyah" (kalimat verbal) yang benar.',
+      words: ['الْكِتَابَ', 'التِّلْمِيْذُ', 'يَقْرَأُ'],
+      correctAnswers: ['يَقْرَأُ التِّلْمِيْذُ الْكِتَابَ'],
+      feedback: 'Jumlah Fi\'liyyah dimulai dengan Fi\'il (kata kerja). Susunan yang benar adalah "يَقْرَأُ التِّلْمِيْذُ الْكِتَابَ" (Siswa itu sedang membaca buku).'
+    },
+    {
+      id: 'q3',
+      instruction: 'Susun kata-kata berikut menjadi kalimat.',
+      words: ['is', 'sky', 'blue', 'The'],
+      correctAnswers: ['The sky is blue'],
+      feedback: 'Urutan standar dalam bahasa Inggris adalah Subjek - Predikat - Objek/Keterangan.'
+    }
+  ]}
+  title="Kuis Menyusun Kalimat Bahasa Arab"
+/>
+
+---
+
+## Properti (Props)
+
+| Properti    | Tipe     | Wajib | Default                       | Deskripsi                                                        |
+| ----------- | -------- | ----- | ----------------------------- | ---------------------------------------------------------------- |
+| `questions` | `Array`  | Ya    | -                             | Sebuah array berisi objek-objek pertanyaan untuk kuis.           |
+| `title`     | `String` | Tidak | `"Kuis Menyusun Kalimat"` | Judul yang akan ditampilkan di bagian atas kuis.                 |
+
+---
+
+## Struktur Data `questions`
+
+Setiap elemen dalam array `questions` adalah sebuah objek dengan struktur berikut:
+
+```js
+{
+  // ID unik untuk setiap pertanyaan (Wajib)
+  id: 'q1',
+
+  // Instruksi yang ditampilkan di atas soal (Wajib)
+  instruction: 'Susunlah kata-kata berikut menjadi kalimat yang benar.',
+
+  // Array berisi kata-kata yang akan diacak oleh komponen (Wajib)
+  words: ['kata1', 'kata2', 'kata3'],
+
+  // Array berisi semua kemungkinan susunan kalimat yang benar (Wajib)
+  correctAnswers: ['kata1 kata2 kata3', 'kata3 kata1 kata2'],
+
+  // Penjelasan yang muncul setelah soal dijawab (Opsional)
+  feedback: 'Penjelasan mengenai jawaban yang benar.'
+}
+```
+
+### Penjelasan Struktur Data
+
+- **`id`**: String (Wajib). ID unik untuk setiap soal. Diperlukan untuk melacak status jawaban.
+- **`instruction`**: String (Wajib). Teks instruksi yang ditampilkan kepada pengguna.
+- **`words`**: Array of Strings (Wajib). Daftar kata yang akan diacak secara otomatis oleh komponen.
+- **`correctAnswers`**: Array of Strings (Wajib). Ini memungkinkan adanya lebih dari satu susunan kalimat yang dianggap benar. Jawaban pengguna (kata yang disusun) akan dibandingkan dengan setiap string dalam array ini. Pastikan kata-kata dipisahkan oleh satu spasi.
+- **`feedback`**: String (Opsional). Umpan balik yang ditampilkan setelah pengguna memeriksa jawabannya. Jawaban benar pertama dari `correctAnswers` akan otomatis ditampilkan bersama feedback.
+
+## Fitur Unggulan
+
+- **Antarmuka Klik**: Pengguna tidak perlu menyeret, cukup mengklik kata untuk memindahkannya. Ini lebih ramah untuk perangkat mobile.
+- **Format Slider**: Kuis disajikan soal per soal, menjaga fokus pengguna.
+- **Navigasi Terpandu**: Pengguna tidak bisa melompat ke soal berikutnya sebelum mencoba menjawab soal saat ini, memastikan alur belajar yang terstruktur.
+- **Tombol Cek Jawaban Dinamis**: Tombol "Periksa Jawaban" hanya aktif ketika semua kata telah digunakan, mencegah pengiriman jawaban yang tidak lengkap.
+- **Dukungan Multi-Jawaban**: Sangat berguna untuk bahasa yang memiliki fleksibilitas struktur kalimat, di mana beberapa susunan bisa jadi benar.
+
+```

@@ -1,0 +1,164 @@
+---
+title: 7. Kuis Pilih Harakat
+sidebar_label: Pilih Harakat
+---
+
+import HarakatQuiz from '@site/src/components/HarakatQuiz';
+
+## Deskripsi
+
+`HarakatQuiz` adalah komponen kuis yang sangat terspesialisasi, dirancang untuk menguji pemahaman tentang harakat atau *i'rab* (perubahan akhir kata) dalam bahasa Arab. Komponen ini menampilkan sebuah kalimat, di mana kata-kata tertentu dapat diklik untuk membuka menu *pop-up*.
+
+Menu *pop-up* tersebut berisi beberapa pilihan kata dengan harakat yang berbeda. Pengguna harus memilih bentuk yang benar sesuai dengan posisi kata tersebut dalam kalimat. Ini adalah alat yang sangat kuat untuk melatih analisis gramatikal (Nahwu).
+
+## Contoh Implementasi
+
+```jsx
+const dataKuis = [
+  {
+    id: 'q1',
+    instruction: 'Pilihlah harakat yang tepat untuk kata yang ditandai.',
+    sentence: [
+      { text: 'ذَهَبَ', isQuestion: false },
+      { text: 'مُحَمَّدٌ', isQuestion: false },
+      { text: 'إِلَى', isQuestion: false },
+      {
+        text: 'المسجد', // Kata dasar tanpa harakat
+        isQuestion: true,
+        options: ['الْمَسْجِدَ', 'الْمَسْجِدُ', 'الْمَسْجِدِ'],
+        correctAnswer: 'الْمَسْجِدِ'
+      }
+    ],
+    feedback: 'Setelah preposisi (huruf jar) seperti "إِلَى", kata benda (isim) berikutnya harus dalam keadaan "jar", yang ditandai dengan harakat kasrah. Maka, "الْمَسْجِدِ" adalah jawaban yang benar.'
+  },
+  {
+    id: 'q2',
+    instruction: 'Lengkapi kalimat berikut dengan i\'rab yang benar.',
+    sentence: [
+      { text: 'رَأَيْتُ', isQuestion: false },
+      {
+        text: 'مدرس',
+        isQuestion: true,
+        options: ['مُدَرِّسًا', 'مُدَرِّسٌ', 'مُدَرِّسٍ'],
+        correctAnswer: 'مُدَرِّسًا'
+      },
+      { text: 'فِي', isQuestion: false },
+      { text: 'الْفَصْلِ', isQuestion: false },
+    ],
+    feedback: 'Kata "مُدَرِّسًا" berfungsi sebagai objek (maf\'ul bih) dari kata kerja "رَأَيْتُ" (saya melihat), sehingga harus dalam keadaan "nasab", yang ditandai dengan fathatain.'
+  }
+];
+
+<HarakatQuiz
+  questions={dataKuis}
+  title="Kuis I'rab Dasar"
+/>
+```
+
+### Hasil
+
+<HarakatQuiz
+  questions={[
+    {
+      id: 'q1',
+      instruction: 'Pilihlah harakat yang tepat untuk kata yang ditandai.',
+      sentence: [
+        { text: 'ذَهَبَ', isQuestion: false },
+        { text: 'مُحَمَّدٌ', isQuestion: false },
+        { text: 'إِلَى', isQuestion: false },
+        {
+          text: 'المسجد',
+          isQuestion: true,
+          options: ['الْمَسْجِدَ', 'الْمَسْجِدُ', 'الْمَسْجِدِ'],
+          correctAnswer: 'الْمَسْجِدِ'
+        }
+      ],
+      feedback: 'Setelah preposisi (huruf jar) seperti "إِلَى", kata benda (isim) berikutnya harus dalam keadaan "jar", yang ditandai dengan harakat kasrah. Maka, "الْمَسْجِدِ" adalah jawaban yang benar.'
+    },
+    {
+      id: 'q2',
+      instruction: 'Lengkapi kalimat berikut dengan i\'rab yang benar.',
+      sentence: [
+        { text: 'رَأَيْتُ', isQuestion: false },
+        {
+          text: 'مدرس',
+          isQuestion: true,
+          options: ['مُدَرِّسًا', 'مُدَرِّسٌ', 'مُدَرِّسٍ'],
+          correctAnswer: 'مُدَرِّسًا'
+        },
+        { text: 'فِي', isQuestion: false },
+        { text: 'الْفَصْلِ', isQuestion: false },
+      ],
+      feedback: 'Kata "مُدَرِّسًا" berfungsi sebagai objek (maf\'ul bih) dari kata kerja "رَأَيْتُ" (saya melihat), sehingga harus dalam keadaan "nasab", yang ditandai dengan fathatain.'
+    }
+  ]}
+  title="Kuis I'rab Dasar"
+/>
+
+---
+
+## Properti (Props)
+
+| Properti    | Tipe     | Wajib | Default            | Deskripsi                                              |
+| ----------- | -------- | ----- | ------------------ | ------------------------------------------------------ |
+| `questions` | `Array`  | Ya    | -                  | Sebuah array berisi objek-objek pertanyaan untuk kuis. |
+| `title`     | `String` | Tidak | `"Kuis Harakat"` | Judul yang akan ditampilkan di bagian atas kuis.       |
+
+---
+
+## Struktur Data `questions`
+
+Struktur data untuk komponen ini cukup unik karena melibatkan kalimat yang dipecah menjadi beberapa bagian.
+
+```js
+{
+  // ID unik untuk setiap pertanyaan (Wajib)
+  id: 'q1',
+
+  // Instruksi yang ditampilkan di atas soal (Wajib)
+  instruction: 'Pilih harakat yang benar.',
+
+  // Array yang merepresentasikan satu kalimat utuh (Wajib)
+  sentence: [
+    // Ini adalah contoh kata biasa (bukan soal)
+    {
+      text: 'Kata biasa',
+      isQuestion: false
+    },
+    // Ini adalah contoh kata yang menjadi soal
+    {
+      text: 'KataDasar', // Teks dasar yang ditampilkan sebelum dipilih
+      isQuestion: true,
+      options: ['Pilihan 1', 'Pilihan 2', 'Pilihan 3'], // Opsi harakat
+      correctAnswer: 'Pilihan 2' // Jawaban yang benar dari opsi
+    }
+  ],
+
+  // Penjelasan yang muncul setelah soal dijawab (Opsional)
+  feedback: 'Penjelasan mengenai kaidah i\'rab pada kalimat ini.'
+}
+```
+
+### Penjelasan Struktur Data `sentence`
+
+Properti `sentence` adalah sebuah array yang berisi objek-objek, di mana setiap objek mewakili satu "kata" dalam kalimat.
+
+- **Objek Kata Biasa**:
+  - `text`: String. Teks kata yang akan ditampilkan apa adanya.
+  - `isQuestion`: `false`. Menandakan ini bukan bagian dari soal.
+
+- **Objek Kata Soal**:
+  - `text`: String (Wajib). Teks dasar kata (biasanya tanpa harakat akhir) yang akan ditampilkan sebagai tombol.
+  - `isQuestion`: `true` (Wajib). Menandakan kata ini adalah soal yang bisa diklik.
+  - `options`: Array of Strings (Wajib). Daftar pilihan kata dengan harakat yang berbeda yang akan muncul di *pop-up*.
+  - `correctAnswer`: String (Wajib). String dari `options` yang merupakan jawaban benar.
+
+## Fitur Unggulan
+
+- **Pembelajaran Kontekstual**: Pengguna belajar i'rab dan harakat langsung di dalam konteks sebuah kalimat, bukan kata yang terisolasi.
+- **Antarmuka Pop-up**: Interaksi melalui *pop-up* membuat tampilan tetap bersih dan fokus pada kata yang sedang dikerjakan.
+- **Teknik Rendering Portal**: Komponen ini menggunakan teknik `React Portal` untuk merender *pop-up* di luar kontainer utama. Ini adalah solusi canggih untuk mencegah masalah umum di mana *pop-up* terpotong oleh batas-batas elemen induknya.
+- **Umpan Balik Visual**: Setelah jawaban diperiksa, setiap kata soal akan ditandai dengan warna hijau (benar) atau merah (salah) secara langsung di dalam kalimat.
+- **Format Slider**: Seperti beberapa kuis lainnya, kuis ini disajikan soal per soal untuk menjaga fokus pengguna.
+
+```

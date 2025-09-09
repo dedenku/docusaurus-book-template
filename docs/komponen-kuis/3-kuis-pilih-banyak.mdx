@@ -1,0 +1,123 @@
+---
+title: 3. Kuis Pilih Banyak
+sidebar_label: Pilih Banyak
+---
+
+import MultiSelectQuiz from '@site/src/components/MultiSelectQuiz';
+
+## Deskripsi
+
+Komponen `MultiSelectQuiz` adalah variasi dari kuis pilihan ganda yang memungkinkan satu pertanyaan memiliki **lebih dari satu jawaban yang benar**. Pengguna harus memilih semua jawaban yang benar untuk mendapatkan poin.
+
+Komponen ini menggunakan antarmuka *checkbox* untuk membedakannya dari kuis pilihan ganda biasa. Sama seperti komponen kuis lainnya, ia menyediakan umpan balik setelah kuis selesai, menampilkan skor, dan menyorot jawaban yang benar dan salah.
+
+## Contoh Implementasi
+
+Berikut adalah contoh penggunaan `MultiSelectQuiz`. Perhatikan bahwa pada pertanyaan pertama, ada dua jawaban yang benar (`isCorrect: true`).
+
+```jsx
+const dataKuis = [
+  {
+    question: 'Manakah dari kata-kata berikut yang merupakan "Isim" (kata benda)?',
+    instruction: 'Pilih semua jawaban yang benar.',
+    options: [
+      { text: 'مَدْرَسَةٌ (Sekolah)', isCorrect: true },
+      { text: 'يَذْهَبُ (Dia pergi)', isCorrect: false },
+      { text: 'قَلَمٌ (Pena)', isCorrect: true },
+      { text: 'فِي (Di dalam)', isCorrect: false },
+    ],
+    feedback: 'Jawaban yang benar adalah "مَدْرَسَةٌ" dan "قَلَمٌ". Keduanya adalah Isim (kata benda). "يَذْهَبُ" adalah Fi'il (kata kerja) dan "فِي" adalah Huruf (partikel).'
+  },
+  {
+    question: 'Pilih semua nama hari dalam bahasa Arab dari daftar berikut.',
+    options: [
+      { text: 'شَهْرٌ (Bulan)', isCorrect: false },
+      { text: 'الأَحَدُ (Minggu)', isCorrect: true },
+      { text: 'اليَوْمَ (Hari ini)', isCorrect: false },
+      { text: 'الجُمُعَةُ (Jumat)', isCorrect: true },
+    ],
+    feedback: 'Jawaban yang benar adalah "الأَحَدُ" (Minggu) dan "الجُمُعَةُ" (Jumat).'
+  },
+];
+
+<MultiSelectQuiz
+  questions={dataKuis}
+  title="Kuis Identifikasi Isim"
+/>
+```
+
+### Hasil
+
+<MultiSelectQuiz
+  questions={[
+    {
+      question: 'Manakah dari kata-kata berikut yang merupakan "Isim" (kata benda)?',
+      instruction: 'Pilih semua jawaban yang benar.',
+      options: [
+        { text: 'مَدْرَسَةٌ (Sekolah)', isCorrect: true },
+        { text: 'يَذْهَبُ (Dia pergi)', isCorrect: false },
+        { text: 'قَلَمٌ (Pena)', isCorrect: true },
+        { text: 'فِي (Di dalam)', isCorrect: false },
+      ],
+      feedback: 'Jawaban yang benar adalah "مَدْرَسَةٌ" dan "قَلَمٌ". Keduanya adalah Isim (kata benda). "يَذْهَبُ" adalah Fi`il (kata kerja) dan "فِي" adalah Huruf (partikel).'
+    },
+    {
+      question: 'Pilih semua nama hari dalam bahasa Arab dari daftar berikut.',
+      options: [
+        { text: 'شَهْرٌ (Bulan)', isCorrect: false },
+        { text: 'الأَحَدُ (Minggu)', isCorrect: true },
+        { text: 'اليَوْمَ (Hari ini)', isCorrect: false },
+        { text: 'الجُمُعَةُ (Jumat)', isCorrect: true },
+      ],
+      feedback: 'Jawaban yang benar adalah "الأَحَدُ" (Minggu) dan "الجُمُعَةُ" (Jumat).'
+    },
+  ]}
+  title="Kuis Identifikasi Isim"
+/>
+
+---
+
+## Properti (Props)
+
+Properti untuk komponen ini identik dengan `MultipleChoiceQuiz`.
+
+| Properti         | Tipe      | Wajib | Default                  | Deskripsi                                                                                             |
+| ---------------- | --------- | ----- | ------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `questions`      | `Array`   | Ya    | -                        | Sebuah array berisi objek-objek pertanyaan yang akan ditampilkan dalam kuis.                          |
+| `title`          | `String`  | Tidak | `"Kuis Pilihan Ganda"`   | Judul yang akan ditampilkan di bagian atas kuis.                                                      |
+| `shuffleQuestions` | `Boolean` | Tidak | `false`                  | Jika diatur `true`, urutan pertanyaan akan diacak setiap kali kuis dimuat.                            |
+
+---
+
+## Struktur Data `questions`
+
+Struktur data untuk `questions` juga identik dengan `MultipleChoiceQuiz`. Perbedaan utamanya terletak pada properti `isCorrect` di dalam `options`.
+
+```js
+{
+  question: 'Teks pertanyaan.',
+  instruction: 'Petunjuk tambahan.',
+  options: [
+    {
+      text: 'Pilihan jawaban pertama.',
+      isCorrect: true, // Jawaban ini benar
+    },
+    {
+      text: 'Pilihan jawaban kedua.',
+      isCorrect: false, // Jawaban ini salah
+    },
+    {
+      text: 'Pilihan jawaban ketiga.',
+      isCorrect: true, // Jawaban ini juga benar
+    },
+    // ...pilihan lainnya
+  ],
+  feedback: 'Penjelasan untuk soal ini.'
+}
+```
+
+### Perbedaan Utama
+
+- **`isCorrect`**: Anda dapat mengatur `isCorrect: true` untuk **beberapa** objek pilihan dalam satu pertanyaan.
+- **Penilaian**: Sebuah soal hanya dianggap benar jika pengguna memilih **semua** opsi yang benar dan **tidak memilih** satu pun opsi yang salah. Tidak ada nilai parsial.
+- **Antarmuka**: Komponen secara otomatis akan menampilkan *checkbox* (kotak centang) bukan *radio button* untuk memungkinkan pemilihan ganda.

@@ -1,0 +1,137 @@
+---
+title: 5. Kuis Mencocokkan
+sidebar_label: Mencocokkan
+---
+
+import MatchingQuiz from '@site/src/components/MatchingQuiz';
+
+## Deskripsi
+
+Komponen `MatchingQuiz` adalah kuis interaktif berbasis *drag-and-drop* (seret dan lepas). Pengguna diminta untuk mencocokkan item dari satu kelompok (misalnya, kosakata Arab) ke kategori yang sesuai di kelompok lain (misalnya, artinya dalam bahasa Indonesia).
+
+Komponen ini sangat efektif untuk menguji pemahaman tentang klasifikasi, definisi, atau pasangan yang berhubungan. Setelah semua item dipasangkan, pengguna dapat memeriksa jawabannya dan akan menerima umpan balik visual yang jelas, termasuk petunjuk koreksi untuk item yang salah ditempatkan.
+
+## Contoh Implementasi
+
+```jsx
+const dataKuis = {
+  instruction: 'Seret setiap kata ke kategori yang benar.',
+  shuffleLeft: true, // Acak urutan kata
+  shuffleRight: true, // Acak urutan kategori
+  items: [
+    { id: 'item1', text: 'كَتَبَ', matchId: 'target_verb' },
+    { id: 'item2', text: 'مَسْجِدٌ', matchId: 'target_noun' },
+    { id: 'item3', text: 'إِلَى', matchId: 'target_particle' },
+    { id: 'item4', text: 'يَقْرَأُ', matchId: 'target_verb' },
+    { id: 'item5', text: 'سَيَّارَةٌ', matchId: 'target_noun' },
+    { id: 'item6', text: 'مِنْ', matchId: 'target_particle' },
+  ],
+  targets: [
+    { id: 'target_noun', text: 'Isim (Kata Benda)' },
+    { id: 'target_verb', text: 'Fi'il (Kata Kerja)' },
+    { id: 'target_particle', text: 'Huruf (Partikel)' },
+  ],
+  feedback: 'Isim adalah kata yang menunjukkan benda, Fi'il adalah kata kerja, dan Huruf adalah partikel yang tidak memiliki arti lengkap tanpa kata lain.'
+};
+
+<MatchingQuiz
+  data={dataKuis}
+  title="Klasifikasi Jenis Kata"
+/>
+```
+
+### Hasil
+
+<MatchingQuiz
+  data={{
+    instruction: 'Seret setiap kata ke kategori yang benar.',
+    shuffleLeft: true,
+    shuffleRight: true,
+    items: [
+      { id: 'item1', text: 'كَتَبَ', matchId: 'target_verb' },
+      { id: 'item2', text: 'مَسْجِدٌ', matchId: 'target_noun' },
+      { id: 'item3', text: 'إِلَى', matchId: 'target_particle' },
+      { id: 'item4', text: 'يَقْرَأُ', matchId: 'target_verb' },
+      { id: 'item5', text: 'سَيَّارَةٌ', matchId: 'target_noun' },
+      { id: 'item6', text: 'مِنْ', matchId: 'target_particle' },
+    ],
+    targets: [
+      { id: 'target_noun', text: 'Isim (Kata Benda)' },
+      { id: 'target_verb', text: 'Fi`il (Kata Kerja)' },
+      { id: 'target_particle', text: 'Huruf (Partikel)' },
+    ],
+    feedback: 'Isim adalah kata yang menunjukkan benda, Fi\'il adalah kata kerja, dan Huruf adalah partikel yang tidak memiliki arti lengkap tanpa kata lain.'
+  }}
+  title="Klasifikasi Jenis Kata"
+/>
+
+---
+
+## Properti (Props)
+
+| Properti | Tipe     | Wajib | Default | Deskripsi                                                                 |
+| -------- | -------- | ----- | ------- | ------------------------------------------------------------------------- |
+| `data`   | `Object` | Ya    | -       | Sebuah objek yang berisi semua data dan konfigurasi untuk kuis mencocokkan. |
+| `title`  | `String` | Tidak | -       | Judul yang akan ditampilkan di bagian atas kuis.                          |
+
+---
+
+## Struktur Objek `data`
+
+Tidak seperti komponen lain, `MatchingQuiz` mengambil satu prop `data` yang berisi semua yang dibutuhkannya. Berikut adalah struktur objek tersebut:
+
+```js
+{
+  // Instruksi yang ditampilkan di bawah judul (Opsional)
+  instruction: 'Seret item dari kiri ke kotak yang sesuai di kanan.',
+
+  // Acak item di kolom kiri saat dimuat (Opsional, default: false)
+  shuffleLeft: true,
+
+  // Acak target di kolom kanan saat dimuat (Opsional, default: false)
+  shuffleRight: true,
+
+  // Array item yang dapat diseret (Wajib)
+  items: [
+    {
+      id: 'unique_item_id_1', // ID unik untuk item ini
+      text: 'Teks yang ditampilkan di kartu item',
+      matchId: 'target_id_to_match' // ID dari target yang benar untuk item ini
+    },
+    // ...item lainnya
+  ],
+
+  // Array target tempat item dijatuhkan (Wajib)
+  targets: [
+    {
+      id: 'unique_target_id_1', // ID unik untuk target ini
+      text: 'Teks yang ditampilkan di kotak target'
+    },
+    // ...target lainnya
+  ],
+  
+  // Feedback umum yang ditampilkan setelah kuis diperiksa (Opsional)
+  feedback: 'Penjelasan umum tentang topik kuis.'
+}
+```
+
+### Penjelasan Struktur Data
+
+- **`instruction`**: String (Opsional). Memberikan petunjuk kepada pengguna tentang apa yang harus dilakukan.
+- **`shuffleLeft` / `shuffleRight`**: Boolean (Opsional). Memberikan kemampuan untuk mengacak item di kolom kiri dan/atau target di kolom kanan untuk meningkatkan tingkat kesulitan.
+- **`items`**: Array (Wajib). Setiap objek dalam array ini adalah kartu yang dapat diseret.
+  - **`id`**: ID unik untuk setiap item. Harus berupa string.
+  - **`text`**: Teks yang dilihat pengguna pada kartu.
+  - **`matchId`**: Ini adalah kunci penghubung. Nilainya harus sama dengan `id` dari target yang benar.
+- **`targets`**: Array (Wajib). Setiap objek adalah sebuah "wadah" atau kategori tempat item dijatuhkan.
+  - **`id`**: ID unik untuk setiap target. `matchId` dari item akan merujuk ke sini.
+  - **`text`**: Teks yang ditampilkan sebagai judul kategori/target.
+- **`feedback`**: String (Opsional). Penjelasan umum yang muncul di bagian bawah setelah kuis selesai.
+
+## Fitur Unggulan
+
+- **Umpan Balik Korektif**: Jika pengguna salah menempatkan item, setelah diperiksa, komponen akan menampilkan petunjuk visual yang menunjukkan ke mana item tersebut seharusnya ditempatkan. Ini sangat membantu proses belajar.
+- **Interaktivitas Penuh**: Pengguna dapat memindahkan item antar target atau mengembalikannya ke "kolom opsi" sebelum memeriksa jawaban.
+- **Penilaian Berbasis Target**: Skor dihitung berdasarkan jumlah target yang diisi dengan benar, bukan per item. Sebuah target dianggap benar hanya jika berisi semua item yang seharusnya dan tidak ada item yang salah.
+- **Tombol Cek Jawaban Dinamis**: Tombol "Periksa Jawaban" hanya akan aktif setelah semua item dari kolom opsi telah dipindahkan ke target, memastikan kuis diselesaikan.
+```

@@ -1,0 +1,195 @@
+---
+title: 1. Kuis Pilihan Ganda
+sidebar_label: Pilihan Ganda
+---
+
+import MultipleChoiceQuiz from '@site/src/components/MultipleChoiceQuiz';
+
+## Deskripsi
+
+Komponen `MultipleChoiceQuiz` adalah komponen interaktif untuk membuat kuis pilihan ganda. Pengguna dapat menjawab serangkaian pertanyaan, dan setelah semua pertanyaan dijawab, komponen akan menampilkan skor total, menyorot jawaban yang benar dan salah, serta memberikan penjelasan untuk setiap pertanyaan.
+
+Komponen ini dirancang untuk memberikan umpan balik instan setelah kuis selesai, menjadikannya alat yang efektif untuk evaluasi pembelajaran.
+
+## Contoh Implementasi
+
+Berikut adalah contoh penggunaan dasar dari komponen `MultipleChoiceQuiz`.
+
+```jsx
+const dataKuis = [
+  {
+    question: 'Manakah dari berikut ini yang termasuk "Isim Isyarah" (kata tunjuk)?',
+    arabicText: 'أي من التالي يعتبر "اسم إشارة"؟',
+    options: [
+      { text: 'Dia (laki-laki)', arabicText: 'هُوَ', isCorrect: false },
+      { text: 'Ini (laki-laki)', arabicText: 'هَٰذَا', isCorrect: true },
+      { text: 'Saya', arabicText: 'أَنَا', isCorrect: false },
+      { text: 'Kami', arabicText: 'نَحْنُ', isCorrect: false },
+    ],
+    feedback: 'Jawaban yang benar adalah **هَٰذَا (Ini)**. Isim Isyarah digunakan untuk menunjuk sesuatu, seperti "ini" dan "itu".',
+  },
+  {
+    question: 'Apa arti dari kata "كِتَابٌ"?',
+    arabicText: 'ما معنى كلمة "كِتَابٌ"؟',
+    options: [
+      { text: 'Pena', isCorrect: false },
+      { text: 'Buku', isCorrect: true },
+      { text: 'Meja', isCorrect: false },
+      { text: 'Pintu', isCorrect: false },
+    ],
+    feedback: 'Jawaban yang benar adalah **Buku**. "كِتَابٌ" adalah salah satu kosakata dasar dalam bahasa Arab yang berarti buku.',
+  },
+  {
+    question: 'Pilih "Fi'il Madhi" (kata kerja lampau) dari opsi berikut.',
+    instruction: 'Fi'il Madhi menunjukkan perbuatan yang telah terjadi.',
+    options: [
+      { text: 'يَكْتُبُ (Dia sedang menulis)', isCorrect: false },
+      { text: 'اكْتُبْ (Tulislah!)', isCorrect: false },
+      { text: 'كَتَبَ (Dia telah menulis)', isCorrect: true },
+      { text: 'كَاتِبٌ (Penulis)', isCorrect: false },
+    ],
+    feedback: 'Jawaban yang benar adalah **كَتَبَ**. Ini adalah bentuk kata kerja lampau untuk orang ketiga tunggal (dia laki-laki).',
+  },
+];
+
+<MultipleChoiceQuiz
+  questions={dataKuis}
+  title="Kuis Dasar Bahasa Arab"
+  shuffleQuestions={true}
+/>
+```
+
+### Hasil
+
+<MultipleChoiceQuiz
+  questions={[
+    {
+      question: 'Manakah dari berikut ini yang termasuk "Isim Isyarah" (kata tunjuk)?',
+      arabicText: 'أي من التالي يعتبر "اسم إشارة"؟',
+      options: [
+        { text: 'Dia (laki-laki)', arabicText: 'هُوَ', isCorrect: false },
+        { text: 'Ini (laki-laki)', arabicText: 'هَٰذَا', isCorrect: true },
+        { text: 'Saya', arabicText: 'أَنَا', isCorrect: false },
+        { text: 'Kami', arabicText: 'نَحْنُ', isCorrect: false },
+      ],
+      feedback: 'Jawaban yang benar adalah **هَٰذَا (Ini)**. Isim Isyarah digunakan untuk menunjuk sesuatu, seperti "ini" dan "itu".',
+    },
+    {
+      question: 'Apa arti dari kata "كِتَابٌ"?',
+      arabicText: 'ما معنى كلمة "كِتَابٌ"؟',
+      options: [
+        { text: 'Pena', isCorrect: false },
+        { text: 'Buku', isCorrect: true },
+        { text: 'Meja', isCorrect: false },
+        { text: 'Pintu', isCorrect: false },
+      ],
+      feedback: 'Jawaban yang benar adalah **Buku**. "كِتَابٌ" adalah salah satu kosakata dasar dalam bahasa Arab yang berarti buku.',
+    },
+    {
+      question: "Pilih Fi'il Madhi (kata kerja lampau) dari opsi berikut.",
+      instruction: "Fi'il Madhi menunjukkan perbuatan yang telah terjadi.",
+      options: [
+        { text: 'يَكْتُبُ (Dia sedang menulis)', isCorrect: false },
+        { text: 'اكْتُبْ (Tulislah!)', isCorrect: false },
+        { text: 'كَتَبَ (Dia telah menulis)', isCorrect: true },
+        { text: 'كَاتِبٌ (Penulis)', isCorrect: false },
+      ],
+      feedback: 'Jawaban yang benar adalah **كَتَبَ**. Ini adalah bentuk kata kerja lampau untuk orang ketiga tunggal (dia laki-laki).',
+    },
+  ]}
+  title="Kuis Dasar Bahasa Arab"
+  shuffleQuestions={true}
+/>
+
+---
+
+## Properti (Props)
+
+Komponen ini menerima beberapa properti untuk kustomisasi:
+
+| Properti         | Tipe      | Wajib | Default                  | Deskripsi                                                                                             |
+| ---------------- | --------- | ----- | ------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `questions`      | `Array`   | Ya    | -                        | Sebuah array berisi objek-objek pertanyaan yang akan ditampilkan dalam kuis.                          |
+| `title`          | `String`  | Tidak | `"Kuis Nahwu"`           | Judul yang akan ditampilkan di bagian atas kuis.                                                      |
+| `shuffleQuestions` | `Boolean` | Tidak | `false`                  | Jika diatur `true`, urutan pertanyaan akan diacak setiap kali kuis dimuat.                            |
+
+---
+
+## Struktur Data `questions`
+
+Properti `questions` adalah sebuah array, di mana setiap elemennya merupakan objek yang merepresentasikan satu pertanyaan. Berikut adalah struktur detail dari objek pertanyaan:
+
+```js
+{
+  // Teks utama pertanyaan (Wajib)
+  question: 'Teks pertanyaan dalam bahasa Indonesia.',
+
+  // Teks tambahan dalam bahasa Arab (Opsional)
+  arabicText: 'نص السؤال باللغة العربية',
+
+  // Instruksi atau petunjuk tambahan untuk pertanyaan (Opsional)
+  instruction: 'Petunjuk untuk menjawab soal.',
+
+  // Array yang berisi pilihan jawaban (Wajib)
+  options: [
+    {
+      // Teks jawaban (Wajib)
+      text: 'Teks pilihan jawaban.',
+      // Teks Arab untuk pilihan jawaban (Opsional)
+      arabicText: 'نص الخيار بالعربية',
+      // Menandakan apakah ini jawaban yang benar (Wajib)
+      isCorrect: true, // atau false
+    },
+    // ...objek pilihan lainnya
+  ],
+
+  // Penjelasan yang akan muncul setelah kuis diperiksa (Opsional)
+  feedback: 'Teks penjelasan mengapa jawaban tersebut benar atau salah.'
+}
+```
+
+### Penjelasan Struktur Data
+
+- **`question`**: String. Teks utama dari pertanyaan yang ingin diajukan.
+- **`arabicText`**: String (Opsional). Jika pertanyaan memerlukan teks Arab, Anda bisa menambahkannya di sini.
+- **`instruction`**: String (Opsional). Gunakan properti ini untuk memberikan petunjuk tambahan kepada pengguna.
+- **`options`**: Array (Wajib). Harus berisi minimal dua objek pilihan jawaban.
+  - **`text`**: String. Teks pilihan jawaban.
+  - **`arabicText`**: String (Opsional). Teks Arab untuk pilihan jawaban.
+  - **`isCorrect`**: Boolean. Harus diatur `true` untuk satu jawaban yang benar dan `false` untuk yang lainnya.
+- **`feedback`**: String (Opsional). Teks ini akan ditampilkan di bawah setiap pertanyaan setelah pengguna menekan tombol "Periksa Jawaban". Sangat berguna untuk memberikan konteks atau penjelasan lebih lanjut.
+
+## Variasi Penggunaan
+
+### Kuis Tanpa Judul dan Tanpa Acak Pertanyaan
+
+Anda bisa membuat kuis yang lebih sederhana dengan tidak menyertakan properti `title` dan `shuffleQuestions`. Komponen akan menggunakan judul default dan urutan pertanyaan akan sesuai dengan definisi di dalam array.
+
+```jsx
+<MultipleChoiceQuiz
+  questions={dataKuisSederhana}
+/>
+```
+
+### Kuis dengan Teks Arab yang Dominan
+
+Komponen ini mendukung penuh teks Arab, baik pada pertanyaan maupun pilihan jawaban, sehingga cocok untuk pembelajaran bahasa Arab.
+
+```jsx
+const dataKuisNahwu = [
+  {
+    question: 'Tentukan jenis "kalimah" dari kata "يَقْرَأُ".',
+    options: [
+      { text: 'Isim (Kata Benda)', isCorrect: false },
+      { text: 'Fi'il (Kata Kerja)', isCorrect: true },
+      { text: 'Huruf (Partikel)', isCorrect: false },
+    ],
+    feedback: 'Kata "يَقْرَأُ" adalah Fi'il Mudhari' (kata kerja sekarang/sedang) yang berarti "dia sedang membaca".'
+  }
+];
+
+<MultipleChoiceQuiz
+  questions={dataKuisNahwu}
+  title="Kuis Klasifikasi Kata"
+/>
+```

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { RotateCcw, CheckCircle, XCircle, Award, Lightbulb } from 'lucide-react';
-import styles from './Quiz.module.css';
+import styles from './MultipleChoiceQuiz.module.css';
 
 // Komponen utama untuk Kuis
-const Quiz = ({ questions, title = "Kuis Nahwu", shuffleQuestions = false }) => {
+const MultipleChoiceQuiz = ({ questions, title = "Kuis Nahwu", shuffleQuestions = false }) => {
   const [processedQuestions, setProcessedQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -292,4 +292,4 @@ const Quiz = ({ questions, title = "Kuis Nahwu", shuffleQuestions = false }) => 
   );
 };
 
-export default Quiz;
+export default MultipleChoiceQuiz;

@@ -1,0 +1,124 @@
+---
+title: 4. Kuis Isian Singkat
+sidebar_label: Isian Singkat
+---
+
+import FillInTheBlankQuiz from '@site/src/components/FillInTheBlankQuiz';
+
+## Deskripsi
+
+Komponen `FillInTheBlankQuiz` memungkinkan pembuatan kuis di mana pengguna harus mengetikkan jawaban singkat di sebuah kolom isian. Ini sangat berguna untuk menguji pengetahuan kosakata, istilah, atau jawaban pendek lainnya.
+
+Fitur unggulan dari komponen ini adalah kemampuannya untuk memvalidasi jawaban secara fleksibel. Ia secara otomatis akan mengabaikan spasi di awal/akhir, perbedaan huruf besar/kecil, dan yang terpenting, **menghapus semua harakat** dari jawaban berbahasa Arab sebelum membandingkannya dengan kunci jawaban. Komponen ini juga mendukung beberapa kemungkinan jawaban yang benar untuk satu pertanyaan.
+
+## Contoh Implementasi
+
+```jsx
+const dataKuis = [
+  {
+    question: 'Lengkapi kalimat: "Saya pergi ke sekolah".',
+    arabicText: 'أَنَا أَذْهَبُ إِلَى ______',
+    correctAnswers: ['الْمَدْرَسَةِ', 'مدرسة', 'المدرسة'],
+    feedback: 'Jawaban yang benar adalah "الْمَدْرَسَةِ" (sekolah). Dalam konteks ini, bisa juga ditulis tanpa harakat atau tanpa "Al-" tergantung pada pemahaman gramatikal.',
+    placeholder: 'Tulis dalam bahasa Arab',
+    answerType: 'arabic',
+    hint: 'Kata benda untuk "tempat belajar".'
+  },
+  {
+    question: 'Apa arti dari "قَلَمٌ"?',
+    correctAnswers: ['pena', 'pulpen'],
+    feedback: 'Jawaban yang benar adalah "pena" atau "pulpen".',
+    placeholder: 'Tulis dalam bahasa Indonesia',
+    answerType: 'indonesia'
+  }
+];
+
+<FillInTheBlankQuiz
+  questions={dataKuis}
+  title="Kuis Kosakata"
+/>
+```
+
+### Hasil
+
+<FillInTheBlankQuiz
+  questions={[
+    {
+      question: 'Lengkapi kalimat: "Saya pergi ke sekolah".',
+      arabicText: 'أَنَا أَذْهَبُ إِلَى ______',
+      correctAnswers: ['الْمَدْرَسَةِ', 'مدرسة', 'المدرسة'],
+      feedback: 'Jawaban yang benar adalah "الْمَدْرَسَةِ" (sekolah). Dalam konteks ini, bisa juga ditulis tanpa harakat atau tanpa "Al-" tergantung pada pemahaman gramatikal.',
+      placeholder: 'Tulis dalam bahasa Arab',
+      answerType: 'arabic',
+      hint: 'Kata benda untuk "tempat belajar".'
+    },
+    {
+      question: 'Apa arti dari "قَلَمٌ"?',
+      correctAnswers: ['pena', 'pulpen'],
+      feedback: 'Jawaban yang benar adalah "pena" atau "pulpen".',
+      placeholder: 'Tulis dalam bahasa Indonesia',
+      answerType: 'indonesia'
+    }
+  ]}
+  title="Kuis Kosakata"
+/>
+
+---
+
+## Properti (Props)
+
+| Properti    | Tipe     | Wajib | Default                | Deskripsi                                                              | 
+| ----------- | -------- | ----- | ---------------------- | ---------------------------------------------------------------------- |
+| `questions` | `Array`  | Ya    | -                      | Sebuah array berisi objek-objek pertanyaan untuk kuis isian singkat.   |
+| `title`     | `String` | Tidak | `"Kuis Isian Singkat"` | Judul yang akan ditampilkan di bagian atas kuis.                       |
+
+---
+
+## Struktur Data `questions`
+
+Setiap elemen dalam array `questions` adalah sebuah objek dengan struktur berikut:
+
+```js
+{
+  // Teks utama pertanyaan (Wajib)
+  question: 'Teks pertanyaan.',
+
+  // Teks Arab tambahan (Opsional)
+  arabicText: 'نص عربي إضافي',
+
+  // Array berisi semua kemungkinan jawaban yang benar (Wajib)
+  correctAnswers: ['jawaban1', 'alternatifJawaban2'],
+
+  // Penjelasan yang muncul setelah kuis diperiksa (Wajib)
+  feedback: 'Penjelasan mengenai jawaban yang benar.',
+
+  // Teks placeholder untuk kolom input (Opsional)
+  placeholder: 'Contoh: Ketik di sini...',
+
+  // Petunjuk yang muncul sebelum kuis diperiksa (Opsional)
+  hint: 'Petunjuk untuk membantu menjawab.',
+
+  // Menentukan arah tulisan di kolom input (Opsional)
+  answerType: 'arabic' // atau 'indonesia'
+}
+```
+
+### Penjelasan Struktur Data
+
+- **`question`**: String (Wajib). Teks pertanyaan.
+- **`arabicText`**: String (Opsional). Teks Arab untuk melengkapi pertanyaan.
+- **`correctAnswers`**: Array of Strings (Wajib). Ini adalah kunci dari komponen ini. Anda bisa memasukkan beberapa variasi jawaban yang dianggap benar. Contoh: `['الْمَدْرَسَةِ', 'المدرسة']` berarti jawaban dengan atau tanpa harakat akan diterima.
+- **`feedback`**: String (Wajib). Penjelasan yang ditampilkan setelah kuis diperiksa. Jika jawaban pengguna salah, jawaban benar pertama dari `correctAnswers` akan otomatis ditampilkan bersama feedback ini.
+- **`placeholder`**: String (Opsional). Teks yang muncul di dalam kolom input sebelum pengguna mengetik.
+- **`hint`**: String (Opsional). Petunjuk kecil yang ditampilkan di bawah kolom input untuk membantu pengguna.
+- **`answerType`**: String (Opsional). Atur ke `'arabic'` (atau nilai apa pun selain `'indonesia'`) untuk membuat arah tulisan di kolom input menjadi kanan-ke-kiri (RTL). Biarkan kosong atau isi `'indonesia'` untuk arah kiri-ke-kanan (LTR).
+
+## Fitur Validasi Jawaban
+
+Saat pengguna memeriksa jawaban, teks yang mereka masukkan akan "dinormalisasi" sebelum dibandingkan dengan `correctAnswers`. Proses normalisasi meliputi:
+
+1.  **Menghapus Harakat**: Semua tanda baca vokal (fathah, kasrah, dhammah, sukun, dll.) pada teks Arab akan dihilangkan.
+2.  **Menghapus Spasi Ekstra**: Spasi di awal dan akhir teks akan dihapus (`trim`).
+3.  **Mengubah ke Huruf Kecil**: Semua huruf akan diubah menjadi huruf kecil (`lowercase`).
+
+Ini membuat proses pengecekan menjadi sangat fleksibel dan tidak kaku.

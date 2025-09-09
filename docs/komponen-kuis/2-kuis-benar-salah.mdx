@@ -1,0 +1,114 @@
+---
+title: 2. Kuis Benar atau Salah
+sidebar_label: Benar atau Salah
+---
+
+import TrueFalseQuiz from '@site/src/components/TrueFalseQuiz';
+
+## Deskripsi
+
+Komponen `TrueFalseQuiz` menyajikan kuis dalam format "Benar atau Salah". Berbeda dengan kuis pilihan ganda, komponen ini menampilkan satu pertanyaan pada satu waktu, memberikan umpan balik instan setelah pengguna menjawab, dan memungkinkan navigasi antar soal.
+
+Fitur utamanya adalah navigasi yang fleksibel, umpan balik per soal, dan halaman hasil akhir yang komprehensif. Komponen ini juga secara otomatis mendeteksi teks Arab untuk menyesuaikan arah tulisan (RTL).
+
+## Contoh Implementasi
+
+Berikut adalah contoh penggunaan komponen `TrueFalseQuiz` dengan beberapa pernyataan.
+
+```jsx
+const dataKuis = [
+  {
+    question: 'Kata "السَّمَاءُ" (langit) adalah contoh dari Isim Muannats (kata benda feminin).',
+    correctAnswer: true,
+    feedback: 'Benar. Dalam bahasa Arab, banyak kata benda yang berakhir dengan Ta Marbutah (ة) atau yang dianggap feminin secara makna (sama\'i), seperti "السَّمَاءُ", diklasifikasikan sebagai Muannats.'
+  },
+  {
+    question: '"لَمْ" adalah partikel yang digunakan untuk menegaskan kalimat positif.',
+    correctAnswer: false,
+    feedback: 'Salah. "لَمْ" adalah partikel "Jazm" yang digunakan untuk meniadakan kata kerja di masa lampau (contoh: لَمْ يَذْهَبْ - dia tidak pergi).'
+  },
+  {
+    question: 'Jumlah huruf hijaiyah adalah 28.',
+    correctAnswer: false,
+    feedback: 'Salah. Umumnya disepakati bahwa jumlah huruf hijaiyah adalah 29, dengan memasukkan Hamzah (ء) sebagai huruf yang terpisah dari Alif (ا).'
+  }
+];
+
+<TrueFalseQuiz
+  questions={dataKuis}
+  title="Fakta dan Mitos Nahwu"
+  shuffleQuestions={true}
+/>
+```
+
+### Hasil
+
+<TrueFalseQuiz
+  questions={[
+    {
+      question: 'Kata "السَّمَاءُ" (langit) adalah contoh dari Isim Muannats (kata benda feminin).',
+      correctAnswer: true,
+      feedback: 'Benar. Dalam bahasa Arab, banyak kata benda yang berakhir dengan Ta Marbutah (ة) atau yang dianggap feminin secara makna (sama\'i), seperti "السَّمَاءُ", diklasifikasikan sebagai Muannats.'
+    },
+    {
+      question: '"لَمْ" adalah partikel yang digunakan untuk menegaskan kalimat positif.',
+      correctAnswer: false,
+      feedback: 'Salah. "لَمْ" adalah partikel "Jazm" yang digunakan untuk meniadakan kata kerja di masa lampau (contoh: لَمْ يَذْهَبْ - dia tidak pergi).'
+    },
+    {
+      question: 'Jumlah huruf hijaiyah adalah 28.',
+      correctAnswer: false,
+      feedback: 'Salah. Umumnya disepakati bahwa jumlah huruf hijaiyah adalah 29, dengan memasukkan Hamzah (ء) sebagai huruf yang terpisah dari Alif (ا).'
+    }
+  ]}
+  title="Fakta dan Mitos Nahwu"
+  shuffleQuestions={true}
+/>
+
+---
+
+## Properti (Props)
+
+Komponen ini menerima beberapa properti untuk kustomisasi:
+
+| Properti             | Tipe      | Wajib | Default                | Deskripsi                                                                                                                               |
+| -------------------- | --------- | ----- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `questions`          | `Array`   | Ya    | `[]`                   | Sebuah array berisi objek-objek pertanyaan yang akan ditampilkan.                                                                       |
+| `title`              | `String`  | Tidak | `"Kuis Benar/Salah"` | Judul yang akan ditampilkan di bagian atas kuis.                                                                                        |
+| `shuffleQuestions`   | `Boolean` | Tidak | `false`                | Jika diatur `true`, urutan pertanyaan akan diacak setiap kali kuis dimuat.                                                              |
+| `autoDetectDirection`| `Boolean` | Tidak | `true`                 | Jika `true`, komponen akan otomatis mendeteksi teks Arab dan menerapkan arah tulisan `rtl`. Nonaktifkan jika Anda ingin mengontrolnya manual. |
+
+---
+
+## Struktur Data `questions`
+
+Setiap elemen dalam array `questions` adalah sebuah objek dengan struktur berikut:
+
+```js
+{
+  // Pernyataan yang harus dievaluasi oleh pengguna (Wajib)
+  question: 'Teks pernyataan atau pertanyaan.',
+
+  // Jawaban yang benar untuk pernyataan tersebut (Wajib)
+  correctAnswer: true, // atau false
+
+  // Penjelasan yang muncul setelah soal dijawab (Opsional)
+  feedback: 'Penjelasan singkat mengenai jawaban yang benar.'
+}
+```
+
+### Penjelasan Struktur Data
+
+- **`question`**: String (Wajib). Teks pernyataan yang akan dinilai "Benar" atau "Salah" oleh pengguna.
+- **`correctAnswer`**: Boolean (Wajib). Nilai `true` jika pernyataan benar, dan `false` jika salah.
+- **`feedback`**: String (Opsional). Teks umpan balik yang akan muncul langsung setelah pengguna menjawab pertanyaan. Ini sangat efektif untuk koreksi dan pembelajaran langsung.
+
+## Fitur Unggulan
+
+- **Umpan Balik Instan****: Pengguna langsung tahu apakah jawabannya benar atau salah tanpa harus menunggu menyelesaikan seluruh kuis.
+- **Navigasi Fleksibel**: Pengguna dapat berpindah antar soal menggunakan tombol panah atau indikator progres di bagian atas.
+- **Indikator Progres**: Memberikan gambaran visual tentang soal mana yang sudah dijawab dan mana yang belum.
+- **Dukungan RTL**: Teks yang mengandung mayoritas karakter Arab akan secara otomatis ditampilkan dari kanan ke kiri (RTL), meningkatkan keterbacaan.
+- **Halaman Hasil**: Setelah semua soal dijawab, sebuah halaman ringkasan menampilkan skor, persentase, dan statistik jawaban (benar, salah, dilewati).
+
+```
