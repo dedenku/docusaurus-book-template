@@ -1,58 +1,18 @@
-/* --- Variabel & Desain Global --- */
-:root {
-  /* Skema Warna Dasar */
-  --quiz-color-correct: var(--ifm-color-success, #10b981);
-  --quiz-color-correct-dark: var(--ifm-color-success-dark, #047857);
-  --quiz-color-correct-light: var(--ifm-color-success-light, #a7f3d0);
-  --quiz-color-correct-bg: rgba(16, 185, 129, 0.1);
-
-  --quiz-color-incorrect: var(--ifm-color-danger, #ef4444);
-  --quiz-color-incorrect-dark: var(--ifm-color-danger-dark, #b91c1c);
-  --quiz-color-incorrect-light: var(--ifm-color-danger-light, #fca5a5);
-  --quiz-color-incorrect-bg: rgba(239, 68, 68, 0.1);
-
-  --quiz-color-unanswered: var(--ifm-color-warning, #f59e0b);
-  --quiz-color-unanswered-dark: var(--ifm-color-warning-dark, #92400e);
-  --quiz-color-unanswered-light: var(--ifm-color-warning-light, #fde68a);
-  --quiz-color-unanswered-bg: rgba(245, 158, 11, 0.1);
-
-  --quiz-border-radius: var(--ifm-card-border-radius, 12px);
-  --quiz-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-[data-theme="dark"] {
-  --quiz-color-correct-bg: rgba(16, 185, 129, 0.2);
-  --quiz-color-incorrect-bg: rgba(239, 68, 68, 0.2);
-  --quiz-color-unanswered-bg: rgba(245, 158, 11, 0.2);
-}
-
-/* --- Container Utama --- */
 .container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: clamp(1rem, 4vw, 2rem);
-  background: var(--ifm-card-background-color);
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: var(--quiz-border-radius);
-  box-shadow: var(--ifm-card-box-shadow);
-  display: flex;
-  flex-direction: column;
+  composes: quiz-container from global;
   gap: 1.5rem;
 }
 
-.header,
-.resultsContainer {
-  text-align: center;
+.header, .resultsContainer {
+  composes: quiz-header from global;
+  margin-bottom: 0;
 }
 
 .title {
+  composes: quiz-title from global;
   font-size: clamp(1.5rem, 5vw, 1.75rem);
-  font-weight: 700;
-  color: var(--ifm-color-primary);
-  margin: 0;
 }
 
-/* --- Styling Teks Dinamis --- */
 .dynamicText {
   font-family: "Amiri", "Scheherazade New", "Segoe UI", sans-serif;
   unicode-bidi: plaintext;
@@ -73,7 +33,6 @@
   direction: auto;
 }
 
-/* --- Indikator Progres --- */
 .progressContainer {
   display: flex;
   justify-content: center;
@@ -90,7 +49,7 @@
   color: var(--ifm-color-content-secondary);
   font-weight: 600;
   cursor: pointer;
-  transition: var(--quiz-transition);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   display: grid;
   place-content: center;
 }
@@ -105,22 +64,21 @@
   transform: scale(1.1);
 }
 .progressCircle.correct {
-  background: var(--quiz-color-correct);
-  border-color: var(--quiz-color-correct);
+  background: var(--ifm-color-success);
+  border-color: var(--ifm-color-success);
   color: white;
 }
 .progressCircle.incorrect {
-  background: var(--quiz-color-incorrect);
-  border-color: var(--quiz-color-incorrect);
+  background: var(--ifm-color-danger);
+  border-color: var(--ifm-color-danger);
   color: white;
 }
 .progressCircle.unanswered {
-  background: var(--quiz-color-unanswered);
-  border-color: var(--quiz-color-unanswered);
+  background: var(--ifm-color-warning);
+  border-color: var(--ifm-color-warning);
   color: white;
 }
 
-/* --- Kontainer Pertanyaan --- */
 .questionContainer {
   display: flex;
   flex-direction: column;
@@ -143,25 +101,24 @@
 
 .tag {
   font-size: 0.75rem;
-  background: var(--quiz-color-unanswered-bg);
-  color: var(--quiz-color-unanswered-dark);
+  background: var(--ifm-color-warning-lightest);
+  color: var(--ifm-color-warning-dark);
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
   font-weight: 500;
 }
 [data-theme="dark"] .tag {
-  color: var(--quiz-color-unanswered-light);
+  color: var(--ifm-color-warning-light);
 }
 
 .questionText {
   font-size: clamp(1.1rem, 4vw, 1.25rem);
   background: var(--ifm-color-emphasis-100);
   padding: 1.5rem;
-  border-radius: calc(var(--quiz-border-radius) / 1.5);
+  border-radius: calc(var(--ifm-card-border-radius) / 1.5);
   border-left: 4px solid var(--ifm-color-primary);
 }
 
-/* --- Tombol Jawaban --- */
 .answersContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -175,11 +132,11 @@
   gap: 0.75rem;
   padding: 1rem 1.5rem;
   border: 2px solid;
-  border-radius: var(--quiz-border-radius);
+  border-radius: var(--ifm-card-border-radius);
   font-size: 1.125rem;
   font-weight: 600;
   cursor: pointer;
-  transition: var(--quiz-transition);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   background: transparent;
 }
 .answerButton:disabled {
@@ -192,62 +149,60 @@
 }
 
 .trueButton {
-  color: var(--quiz-color-correct);
-  border-color: var(--quiz-color-correct);
+  color: var(--ifm-color-success);
+  border-color: var(--ifm-color-success);
 }
 .trueButton:not(:disabled):hover {
-  background: var(--quiz-color-correct);
+  background: var(--ifm-color-success);
   color: white;
 }
 
 .falseButton {
-  color: var(--quiz-color-incorrect);
-  border-color: var(--quiz-color-incorrect);
+  color: var(--ifm-color-danger);
+  border-color: var(--ifm-color-danger);
 }
 .falseButton:not(:disabled):hover {
-  background: var(--quiz-color-incorrect);
+  background: var(--ifm-color-danger);
   color: white;
 }
 
 .answerButton.correct {
-  background: var(--quiz-color-correct) !important;
+  background: var(--ifm-color-success) !important;
   color: white !important;
-  animation: pulse 0.5s;
+  animation: quiz-pop-in 0.5s;
 }
 .answerButton.incorrect {
-  background: var(--quiz-color-incorrect) !important;
+  background: var(--ifm-color-danger) !important;
   color: white !important;
-  animation: shake 0.5s;
+  animation: quiz-shake 0.5s;
 }
 .answerButton.correctAnswer {
-  box-shadow: 0 0 0 3px var(--quiz-color-correct-light);
+  box-shadow: 0 0 0 3px var(--ifm-color-success-light);
 }
 
-/* --- Feedback --- */
 .feedback {
   padding: 1rem 1.5rem;
-  border-radius: var(--quiz-border-radius);
+  border-radius: var(--ifm-card-border-radius);
   border-left: 4px solid;
-  animation: fadeIn 0.4s;
+  animation: quiz-fade-in 0.4s;
 }
 .correctFeedback {
-  background: var(--quiz-color-correct-bg);
-  color: var(--quiz-color-correct-dark);
-  border-color: var(--quiz-color-correct);
+  background: var(--ifm-color-success-lightest);
+  color: var(--ifm-color-success-dark);
+  border-color: var(--ifm-color-success);
 }
 .incorrectFeedback {
-  background: var(--quiz-color-incorrect-bg);
-  color: var(--quiz-color-incorrect-dark);
-  border-color: var(--quiz-color-incorrect);
+  background: var(--ifm-color-danger-lightest);
+  color: var(--ifm-color-danger-dark);
+  border-color: var(--ifm-color-danger);
 }
 [data-theme="dark"] .correctFeedback {
-  color: var(--quiz-color-correct-light);
+  color: var(--ifm-color-success-light);
 }
 [data-theme="dark"] .incorrectFeedback {
-  color: var(--quiz-color-incorrect-light);
+  color: var(--ifm-color-danger-light);
 }
 
-/* --- Navigasi & Tombol Aksi --- */
 .navigation {
   display: flex;
   justify-content: space-between;
@@ -258,7 +213,7 @@
 .navButton,
 .primaryButton {
   cursor: pointer;
-  transition: var(--quiz-transition);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   font-weight: 600;
   display: inline-flex;
@@ -271,7 +226,7 @@
   cursor: not-allowed;
   opacity: 0.5;
 }
-/* Peningkatan Aksesibilitas: Gaya Fokus */
+
 .navButton:focus-visible,
 .primaryButton:focus-visible,
 .answerButton:focus-visible,
@@ -297,16 +252,9 @@
 }
 
 .primaryButton {
+  composes: quiz-button from global;
+  composes: quiz-button--primary from global;
   padding: 0.75rem 1.5rem;
-  background: var(--ifm-color-primary);
-  color: white;
-  border-radius: var(--quiz-border-radius);
-  font-size: 1rem;
-}
-.primaryButton:not(:disabled):hover {
-  background: var(--ifm-color-primary-dark);
-  transform: translateY(-2px);
-  box-shadow: var(--ifm-card-box-shadow);
 }
 
 .buttonIcon {
@@ -318,7 +266,6 @@
   text-align: center;
 }
 
-/* --- Halaman Hasil --- */
 .resultsHeader {
   display: flex;
   flex-direction: column;
@@ -330,13 +277,13 @@
   height: 4rem;
 }
 .resultsIcon.success {
-  color: var(--quiz-color-correct);
+  color: var(--ifm-color-success);
 }
 .resultsIcon.warning {
-  color: var(--quiz-color-unanswered);
+  color: var(--ifm-color-warning);
 }
 .resultsIcon.danger {
-  color: var(--quiz-color-incorrect);
+  color: var(--ifm-color-danger);
 }
 
 .scoreContainer {
@@ -360,19 +307,19 @@
 .scoreFeedback {
   font-size: 1.25rem;
   padding: 1rem;
-  border-radius: var(--quiz-border-radius);
+  border-radius: var(--ifm-card-border-radius);
 }
 .scoreFeedback.success {
-  background: var(--quiz-color-correct-bg);
-  color: var(--quiz-color-correct-dark);
+  background: var(--ifm-color-success-lightest);
+  color: var(--ifm-color-success-dark);
 }
 .scoreFeedback.warning {
-  background: var(--quiz-color-unanswered-bg);
-  color: var(--quiz-color-unanswered-dark);
+  background: var(--ifm-color-warning-lightest);
+  color: var(--ifm-color-warning-dark);
 }
 .scoreFeedback.danger {
-  background: var(--quiz-color-incorrect-bg);
-  color: var(--quiz-color-incorrect-dark);
+  background: var(--ifm-color-danger-lightest);
+  color: var(--ifm-color-danger-dark);
 }
 
 .resultStats {
@@ -393,19 +340,18 @@
   border-radius: 50%;
 }
 .statDot.correct {
-  background: var(--quiz-color-correct);
+  background: var(--ifm-color-success);
 }
 .statDot.incorrect {
-  background: var(--quiz-color-incorrect);
+  background: var(--ifm-color-danger);
 }
 .statDot.unanswered {
-  background: var(--quiz-color-unanswered);
+  background: var(--ifm-color-warning);
 }
 
-/* --- State Error --- */
 .error {
   padding: 2rem;
-  color: var(--quiz-color-incorrect);
+  color: var(--ifm-color-danger);
 }
 .errorIcon {
   width: 3rem;
@@ -413,47 +359,6 @@
   margin: 0 auto 1rem;
 }
 
-/* --- Animasi --- */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.03);
-  }
-}
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  10%,
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: translateX(-5px);
-  }
-  20%,
-  40%,
-  60%,
-  80% {
-    transform: translateX(5px);
-  }
-}
-
-/* --- Desain Responsif --- */
 @media (max-width: 768px) {
   .answersContainer {
     grid-template-columns: 1fr;

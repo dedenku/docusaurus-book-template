@@ -1,80 +1,42 @@
-/* Import font Arab */
-@import url("https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap");
-
-/* Base Styles */
 .quizContainer {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: clamp(1rem, 4vw, 1.5rem);
-  background: var(--ifm-background-color);
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: var(--ifm-border-radius);
-  box-shadow: var(--ifm-global-shadow-lw);
-  font-family: var(--ifm-font-family-base);
+  composes: quiz-container from global;
 }
 
-/* Header */
 .header {
-  text-align: center;
-  margin-bottom: 2rem;
+  composes: quiz-header from global;
 }
 .title {
-  font-size: clamp(1.5rem, 5vw, 2rem);
-  font-weight: 700;
-  color: var(--ifm-color-primary);
-  margin: 0;
+  composes: quiz-title from global;
 }
 .instruction {
-  font-size: 1rem;
-  color: var(--ifm-color-content-secondary);
-  margin-top: 0.5rem;
+  composes: quiz-info-text from global;
 }
 .scoreInfo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-  margin-top: 1rem;
-  background-color: var(--ifm-color-emphasis-200);
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
+  composes: quiz-score-info from global;
 }
 
-/* Results Card */
 .resultsCard {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: var(--ifm-color-emphasis-100);
-  border-radius: var(--ifm-border-radius);
-  text-align: center;
+  composes: quiz-results-card from global;
 }
 .scoreDisplay {
-  font-size: clamp(2.5rem, 8vw, 3rem);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  composes: quiz-score-display from global;
 }
 .scoreDisplay.excellent {
-  color: var(--ifm-color-success);
+  color: var(--ifm-color-success) !important;
 }
 .scoreDisplay.good {
-  color: var(--ifm-color-warning);
+  color: var(--ifm-color-warning) !important;
 }
 .scoreDisplay.needsImprovement {
-  color: var(--ifm-color-danger);
+  color: var(--ifm-color-danger) !important;
 }
 .scoreMessage {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--ifm-color-content);
+  composes: quiz-score-message from global;
 }
 
-/* Matching Area */
 .matchingArea {
   display: grid;
-  grid-template-columns: 2fr 3fr; /* Kolom kiri lebih kecil */
+  grid-template-columns: 2fr 3fr;
   gap: 1.5rem;
 }
 
@@ -117,9 +79,8 @@
   padding: 1rem;
 }
 
-/* Draggable Items */
 .item {
-  position: relative; /* Diperlukan untuk positioning tooltip */
+  position: relative;
   padding: 0.75rem 1rem;
   border: 1px solid var(--ifm-color-emphasis-300);
   border-radius: var(--ifm-border-radius);
@@ -131,6 +92,7 @@
   text-align: center;
   transition: all 0.2s ease-in-out;
   user-select: none;
+  width: 100%;
 }
 
 .item:hover {
@@ -145,7 +107,6 @@
   transform: scale(1.05) rotate(3deg);
 }
 
-/* Drop Targets */
 .target {
   background-color: var(--ifm-background-color);
   border-radius: var(--ifm-border-radius);
@@ -181,26 +142,19 @@
   font-size: 0.9rem;
 }
 
-/* Drag Over State */
 .dragOver .dropZone,
 .sourceColumn.dragOver {
   background-color: var(--ifm-color-primary-lightest);
 }
 
-/* Individual Item Feedback */
 .itemCorrect {
-  background-color: var(--ifm-color-success-lightest);
-  border-color: var(--ifm-color-success-dark);
-  color: var(--ifm-color-success-darkest);
+  composes: quiz-option--correct from global;
 }
 
 .itemIncorrect {
-  background-color: var(--ifm-color-danger-lightest);
-  border-color: var(--ifm-color-danger-dark);
-  color: var(--ifm-color-danger-darkest);
+  composes: quiz-option--incorrect from global;
 }
 
-/* Correction Hint Tooltip */
 .correctionHint {
   position: absolute;
   top: 50%;
@@ -234,89 +188,34 @@
   }
 }
 
-/* Feedback & Actions */
 .feedback {
-  margin-top: 1.5rem;
-  background: var(--ifm-color-emphasis-100);
-  border-left: 4px solid var(--ifm-color-info);
-  border-radius: var(--ifm-border-radius);
-  animation: fadeIn 0.5s ease;
+  composes: quiz-feedback from global;
 }
 .feedbackHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background-color: var(--ifm-color-emphasis-200);
-  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  composes: quiz-feedback-header from global;
 }
 .feedbackContent {
-  padding: 1rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  composes: quiz-feedback-content from global;
 }
 
 .actions {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
+  composes: quiz-actions from global;
 }
 .button {
-  padding: 0.8rem 2rem;
-  border-radius: var(--ifm-border-radius);
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: 1rem;
+  composes: quiz-button from global;
 }
 .submitButton {
-  background: var(--ifm-color-primary);
-  color: white;
-}
-.submitButton:hover:not(:disabled) {
-  background: var(--ifm-color-primary-dark);
-}
-.submitButton:disabled {
-  background: var(--ifm-color-emphasis-300);
-  color: var(--ifm-color-content-secondary);
-  cursor: not-allowed;
+  composes: quiz-button--primary from global;
 }
 .resetButton {
-  background: var(--ifm-color-emphasis-700);
-  color: white;
-}
-.resetButton:hover {
-  background: var(--ifm-color-emphasis-800);
+  composes: quiz-button--secondary from global;
 }
 
-/* Draggable Items */
-.item {
-  width: 100%; /* Pastikan item mengisi wrapper */
-  position: relative;
-  padding: 0.75rem 1rem;
-  /* ... (sisa style .item) ... */
-}
-
-/* Wrapper baru untuk item yang sudah dijatuhkan */
 .itemWrapper {
   position: relative;
-  display: flex; /* Membantu positioning hint */
+  display: flex;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .matchingArea {
     grid-template-columns: 1fr;

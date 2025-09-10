@@ -1,69 +1,38 @@
-/* Import font Arab */
-@import url("https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap");
-
-/* Base Styles */
 .quizContainer {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: clamp(1rem, 4vw, 1.5rem);
-  background: var(--ifm-background-color);
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: var(--ifm-border-radius);
-  box-shadow: var(--ifm-global-shadow-lw);
-  font-family: var(--ifm-font-family-base);
+  composes: quiz-container from global;
 }
 
-/* Header */
 .header {
-  text-align: center;
-  margin-bottom: 1.5rem;
+  composes: quiz-header from global;
 }
+
 .title {
-  font-size: clamp(1.5rem, 5vw, 2rem);
-  font-weight: 700;
-  color: var(--ifm-color-primary);
-  margin: 0;
+  composes: quiz-title from global;
 }
+
 .scoreInfo {
-  color: var(--ifm-color-content-secondary);
-  margin-top: 0.5rem;
+  composes: quiz-info-text from global;
   font-weight: 600;
 }
 
-/* Questions List */
 .questionsList {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  composes: quiz-questions-list from global;
 }
 
 .questionCard {
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: var(--ifm-border-radius);
-  padding: 1.5rem;
+  composes: quiz-question-card from global;
   background: var(--ifm-color-emphasis-100);
-  transition: background-color 0.3s ease;
 }
 
 .questionHeader {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  composes: quiz-question-header from global;
 }
 
 .questionNumber {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  composes: quiz-question-number from global;
   width: 2rem;
   height: 2rem;
-  background: var(--ifm-color-primary);
-  color: white;
   font-size: 0.9rem;
-  font-weight: 700;
-  border-radius: 50%;
-  flex-shrink: 0;
   margin-top: 0.5rem;
 }
 
@@ -74,25 +43,22 @@
   direction: rtl;
   text-align: right;
   flex: 1;
-  margin: 0; /* Menghilangkan margin default dari <p> */
-  /* BARU: Memastikan kata-kata terpisah dengan baik saat baris baru */
+  margin: 0;
   word-spacing: 0.2rem;
 }
 
-/* Clickable Word Styling */
 .clickableOption {
   font-family: inherit;
   font-size: inherit;
   border-radius: var(--ifm-border-radius-sm);
   padding: 0.2rem 0.6rem;
-  /* DIUBAH: Menggunakan margin untuk spasi yang lebih konsisten */
   margin-inline: 0.2rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   border: 1px solid transparent;
   background-color: var(--ifm-color-warning-lightest);
   color: var(--ifm-color-warning-darkest);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* BARU: Memberi sedikit kedalaman */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .clickableOption:hover:not(:disabled) {
@@ -101,7 +67,6 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* BARU: State focus untuk aksesibilitas keyboard */
 .clickableOption:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--ifm-color-primary-lightest);
@@ -111,101 +76,70 @@
   cursor: default;
 }
 
-/* Option States */
 .selected {
   background-color: var(--ifm-color-info-lightest);
   color: var(--ifm-color-info-darkest);
-  /* DIUBAH: Hilangkan border-right, ganti dengan box-shadow */
+  /* composes: quiz-option--selected from global; */
   box-shadow: 0 0 0 2px var(--ifm-color-info-lightest);
 }
 
 .correct {
-  background-color: var(--ifm-color-success-lightest);
-  color: var(--ifm-color-success-darkest);
+  composes: quiz-option--correct from global;
 }
 
 .incorrect {
-  background-color: var(--ifm-color-danger-lightest);
-  color: var(--ifm-color-danger-darkest);
+  composes: quiz-option--incorrect from global;
 }
 
-/* Feedback & Results */
 .feedback {
-  margin-top: 1.5rem;
-  margin-inline-start: 3rem; /* DIUBAH: Properti logis untuk RTL/LTR */
-  background: var(--ifm-color-emphasis-100);
-  border-inline-start: 4px solid var(--ifm-color-info); /* DIUBAH: Properti logis */
-  border-radius: var(--ifm-border-radius);
-  animation: fadeIn 0.5s ease;
+  composes: quiz-feedback from global;
+  margin-inline-start: 3rem;
 }
+
 .feedbackHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background-color: var(--ifm-color-emphasis-200);
-  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  composes: quiz-feedback-header from global;
 }
+
 .feedbackContent {
-  padding: 1rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  composes: quiz-feedback-content from global;
 }
 
 .resultsCard {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: var(--ifm-color-emphasis-100);
-  border-radius: var(--ifm-border-radius);
-  text-align: center;
-  animation: fadeIn 0.5s ease-out; /* BARU: Animasi pada hasil */
-}
-.scoreDisplay {
-  font-size: clamp(2.5rem, 8vw, 3rem);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-.scoreDisplay.excellent {
-  color: var(--ifm-color-success);
-}
-.scoreDisplay.good {
-  color: var(--ifm-color-warning);
-}
-.scoreDisplay.needsImprovement {
-  color: var(--ifm-color-danger);
-}
-.scoreMessage {
-  font-size: 1.3rem;
-  margin-top: 0.5rem;
+  composes: quiz-results-card from global;
+  animation-name: quiz-fade-in;
 }
 
-/* Actions */
-.actions {
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
+.scoreDisplay {
+  composes: quiz-score-display from global;
 }
-/* BARU: Wrapper untuk tombol submit dan pesan bantuan */
+
+.scoreDisplay.excellent {
+  color: var(--ifm-color-success) !important;
+}
+
+.scoreDisplay.good {
+  color: var(--ifm-color-warning) !important;
+}
+
+.scoreDisplay.needsImprovement {
+  color: var(--ifm-color-danger) !important;
+}
+
+.scoreMessage {
+  composes: quiz-score-message from global;
+}
+
+.actions {
+  composes: quiz-actions from global;
+}
+
 .submitContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
 }
-/* BARU: Styling untuk teks bantuan di bawah tombol submit */
+
 .submitHelpText {
   font-size: 0.85rem;
   color: var(--ifm-color-content-secondary);
@@ -216,40 +150,17 @@
 }
 
 .button {
-  padding: 0.8rem 2rem;
-  border-radius: var(--ifm-border-radius);
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-}
-.submitButton {
-  background: var(--ifm-color-primary);
-  color: white;
-}
-.submitButton:hover:not(:disabled) {
-  background: var(--ifm-color-primary-dark);
-}
-.submitButton:disabled {
-  background: var(--ifm-color-emphasis-300);
-  color: var(--ifm-color-content-secondary);
-  cursor: not-allowed;
-  transform: none; /* Menghilangkan efek hover saat disabled */
-}
-.resetButton {
-  background: var(--ifm-color-emphasis-700);
-  color: white;
-}
-.resetButton:hover {
-  background: var(--ifm-color-emphasis-800);
+  composes: quiz-button from global;
 }
 
-/* Responsive */
+.submitButton {
+  composes: quiz-button--primary from global;
+}
+
+.resetButton {
+  composes: quiz-button--secondary from global;
+}
+
 @media (max-width: 768px) {
   .feedback {
     margin-inline-start: 0;
