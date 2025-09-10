@@ -4,7 +4,7 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -93,7 +93,7 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/facebook/docusaurus',
             label: 'GitHub',
@@ -150,7 +150,39 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
+
+      // Mermaid
+      mermaid: {
+  theme: { 
+    light: 'base', 
+    dark: 'dark' 
+  },
+  options: {
+    fontFamily: 'Arial, "Noto Sans Arabic", sans-serif',
+    fontSize: 14,
+    maxTextSize: 90000,
+    // Konfigurasi tema untuk light mode
+    themeVariables: {
+      primaryColor: '#ff6b35',
+      primaryTextColor: '#2c3e50',
+      primaryBorderColor: '#3498db',
+      lineColor: '#2c3e50',
+      secondaryColor: '#ecf0f1',
+      tertiaryColor: '#ffffff',
+      background: '#ffffff',
+      mainBkg: '#ecf0f1',
+      secondBkg: '#bdc3c7',
+    },
+    // Konfigurasi untuk dark mode akan otomatis dihandle oleh tema 'dark'
+  },
+},
     }),
+
+  // Mermaid
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
 };
 
 export default config;
