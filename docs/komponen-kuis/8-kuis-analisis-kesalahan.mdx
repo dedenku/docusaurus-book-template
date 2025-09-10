@@ -1,14 +1,64 @@
 ---
-title: Latihan Lanjutan tentang Kaidah "Kana"
+title: 8. Kuis Analisis Kesalahan
+sidebar_label: Analisis Kesalahan
 ---
 
 import ClickableWrittenExpressionQuiz from '@site/src/components/ClickableWrittenExpressionQuiz';
 
-## Latihan Pemahaman: Kana wa Akhwatuha (كان وأخواتها)
+## Deskripsi
 
-Pada latihan kali ini, fokus kita adalah pada pengaruh **`كان` dan saudara-saudaranya** pada kalimat nominal (*jumlah ismiyah*). Tugas Anda tetap sama: temukan kata yang kedudukan *i'rab*-nya salah dalam setiap kalimat di bawah ini.
+`ClickableWrittenExpressionQuiz` adalah komponen kuis yang dirancang untuk menguji pemahaman tata bahasa dan struktur kalimat. Dalam kuis ini, pengguna disajikan beberapa kalimat, di mana setiap kalimat memiliki satu kata yang salah secara gramatikal.
 
-Pilih jawaban Anda pada setiap nomor, lalu periksa hasilnya. Semoga berhasil! 💡
+Pengguna harus mengidentifikasi dan mengklik kata yang salah dari beberapa pilihan yang telah ditentukan. Komponen ini secara otomatis akan mengubah kata-kata pilihan dalam kalimat menjadi tombol yang bisa diklik, sementara sisa kalimatnya tetap sebagai teks biasa.
+
+## Contoh Implementasi
+
+```jsx
+import ClickableWrittenExpressionQuiz from '@site/src/components/ClickableWrittenExpressionQuiz';
+
+const dataKuis = [
+  {
+    id: 'kana1',
+    sentence: "كَانَ الطَّالِبُ مُجْتَهِدٌ.",
+    options: [
+      { key: 'A', text: "كَانَ" },
+      { key: "B", text: "الطَّالِبُ" },
+      { key: "C", text: "مُجْتَهِدٌ" },
+    ],
+    correctAnswerKey: "C",
+    feedback: "Kata 'مُجْتَهِدٌ' adalah khabar kāna (predikat untuk kāna), sehingga ia harus berada dalam keadaan nashab (mansub). Bentuk i'rab yang benar adalah 'مُجْتَهِدًا'."
+  },
+  {
+    id: 'kana2',
+    sentence: "لَيْسَ الْمُهَنْدِسَانِ حَاضِرَانِ.",
+    options: [
+      { key: 'A', text: "لَيْسَ" },
+      { key: "B", text: "الْمُهَنْدِسَانِ" },
+      { key: "C", text: "حَاضِرَانِ" },
+    ],
+    correctAnswerKey: "C",
+    feedback: "Kata 'حَاضِرَانِ' berfungsi sebagai khabar laysa dan harus dalam keadaan nashab. Bentuk nashab untuk mutsanna (dual) adalah dengan 'ي', sehingga bentuk yang benar adalah 'حَاضِرَيْنِ'."
+  },
+  {
+    id: 'kana3',
+    sentence: "صَارَ الْبُرْتُقَالَ عَصِيْرًا.",
+    options: [
+      { key: 'A', text: "صَارَ" },
+      { key: "B", text: "الْبُرْتُقَالَ" },
+      { key: "C", text: "عَصِيْرًا" },
+    ],
+    correctAnswerKey: "B",
+    feedback: "Kata 'الْبُرْتُقَالَ' adalah isim shāra (subjek untuk shāra), sehingga ia harus berada dalam keadaan rafa' (marfu'). Bentuk i'rab yang benar adalah 'الْبُرْتُقَالُ'."
+  }
+];
+
+<ClickableWrittenExpressionQuiz
+  title="Latihan Kaidah Kana wa Akhwatuha"
+  questions={dataKuis}
+/>
+```
+
+### Hasil
 
 export const kuisSoalLanjutan = [
   {
@@ -51,75 +101,57 @@ export const kuisSoalLanjutan = [
   questions={kuisSoalLanjutan}
 />
 
-## Latihan: Identifikasi Kesalahan pada Kalimat Majemuk
+---
 
-Selamat datang di latihan tingkat lanjut. Kalimat-kalimat di bawah ini lebih panjang dan kompleks. Anda harus lebih teliti dalam menemukan kesalahan gramatikalnya.
+## Properti (Props)
 
-Seperti biasa, klik pada kata yang Anda yakini salah. Perhatikan bahwa tidak semua kata adalah pilihan. Fokuslah pada empat kata yang ditandai sebagai opsi.
-
-export const kuisSoalPanjang = [
-  {
-    id: 'complex1',
-    sentence: "يَقْرَأُ الطُّلَّابُ الْمُجْتَهِدُوْنَ الْكُتُبَ الْكَثِيْرَةَ فِي الْمَكْتَبَةِ لِأَنَّهُمْ يُحِبُّوْنَ الْقِرَاءَةُ.",
-    options: [
-      { key: 'A', text: "الْمُجْتَهِدُوْنَ" },
-      { key: 'B', text: "الْكَثِيْرَةَ" },
-      { key: 'C', text: "الْمَكْتَبَةِ" },
-      { key: 'D', text: "الْقِرَاءَةُ" },
-    ],
-    correctAnswerKey: 'D',
-    feedback: "Kata 'الْقِرَاءَةُ' adalah *maf'ul bih* (objek) dari *fi'il* (kata kerja) 'يُحِبُّوْنَ', sehingga ia harus berada dalam keadaan *nashab*. Bentuk yang benar adalah 'الْقِرَاءَةَ'."
-  },
-  {
-    id: 'complex2',
-    sentence: "شَاهَدَ أَحْمَدُ وَأَصْدِقَائِهِ فِلْمًا جَدِيْدًا فِي السِّيْنَمَا يَوْمَ الْجُمْعَةِ الْمَاضِي.",
-    options: [
-      { key: 'A', text: "شَاهَدَ" },
-      { key: 'B', text: "أَصْدِقَائِهِ" },
-      { key: 'C', text: "جَدِيْدًا" },
-      { key: 'D', text: "الْمَاضِي" },
-    ],
-    correctAnswerKey: 'B',
-    feedback: "Kata 'أَصْدِقَائِهِ' adalah *ma'thuf* (mengikuti) pada 'أَحْمَدُ' yang berkedudukan sebagai *fa'il* (subjek) dan berada dalam keadaan *rafa'*. Oleh karena itu, bentuk yang benar adalah 'أَصْدِقَاؤُهُ' (marfu')."
-  },
-   {
-    id: 'complex3',
-    sentence: "لَمْ يَكْتُبْ الْكَاتِبَانِ الْمَشْهُوْرَانِ رِوَايَةً عَنْ تَارِيْخِ الْبَلَدِ الْقَدِيْمَةِ.",
-    options: [
-      { key: 'A', text: "يَكْتُبْ" },
-      { key: 'B', text: "الْكَاتِبَانِ" },
-      { key: 'C', text: "رِوَايَةً" },
-      { key: 'D', text: "الْقَدِيْمَةِ" },
-    ],
-    correctAnswerKey: 'A',
-    feedback: "Subjek (*fa'il*) dari kalimat ini adalah 'الْكَاتِبَانِ' yang merupakan bentuk *mutsanna* (dual). Fi'il (kata kerja) yang mendahului *fa'il* yang tampak harus selalu dalam bentuk tunggal (*mufrad*). Bentuk yang benar tetap 'يَكْتُبْ', tetapi pemahaman ini penting untuk konteks soal yang lain. Mari kita ubah soalnya agar lebih jelas: Jika *fa'il*-nya di depan (الكاتبان لم...), maka *fi'il*-nya harus 'يكتبا'. Namun dalam struktur ini, kesalahannya terletak pada bagian lain. *Revisi soal*: Kesalahan ada di 'الْقَدِيْمَةِ' yang seharusnya 'الْقَدِيْمِ' karena menjadi na'at untuk 'الْبَلَدِ'."
-  }
-];
-
-<ClickableWrittenExpressionQuiz
-  title="Latihan Analisis Kalimat Kompleks"
-  questions={kuisSoalPanjang}
-/>
-
-### Bagaimana Cara Kerjanya?
-
-Komponen ini cukup cerdas untuk menangani kasus seperti ini. Saat merender soal, ia akan:
-
-1.  Membaca seluruh string `sentence`.
-2.  Melihat daftar kata di dalam `options`.
-3.  Memecah kalimat dan mengganti setiap kata yang cocok dengan yang ada di `options` menjadi sebuah elemen `<button>`.
-4.  Kata-kata lain yang tidak ada dalam `options` akan tetap ditampilkan sebagai teks biasa (elemen `<span>`).
-
-Dengan cara ini, Anda bisa membuat soal yang sangat fokus, mengarahkan perhatian siswa hanya pada bagian-bagian kalimat yang relevan untuk dianalisis, sementara tetap menyajikan kalimat tersebut dalam konteksnya yang utuh.
+| Properti | Tipe | Wajib | Default | Deskripsi |
+| :--- | :--- | :--- | :--- | :--- |
+| `title` | `String` | Tidak | - | Judul yang akan ditampilkan di bagian atas kuis. |
+| `questions` | `Array` | Ya | - | Sebuah array berisi objek-objek pertanyaan untuk kuis. |
 
 ---
 
-### Catatan Implementasi
+## Struktur Data `questions`
 
-Kode di atas menunjukkan cara penggunaan komponen `ClickableWrittenExpressionQuiz` dengan set data yang berbeda.
+Setiap elemen dalam array `questions` adalah sebuah objek dengan struktur berikut:
 
-* **Impor Komponen**: Komponen diimpor di bagian atas file.
-* **Definisi Data**: Soal-soal didefinisikan dalam sebuah *array* JavaScript bernama `kuisSoalLanjutan`.
-* **Render Komponen**: Komponen dirender seperti tag HTML biasa dan data soal dimasukkan melalui *props* `questions`.
+```js
+{
+  // ID unik untuk setiap pertanyaan (Wajib)
+  id: 'kana1',
 
-Penting untuk dicatat bahwa semua fungsionalitas dan tampilan kuis ini **dicapai tanpa elemen `<canvas>`**. Interaksi pengguna ditangani oleh React, dan semua gaya visual, termasuk efek *hover*, seleksi, dan umpan balik benar/salah, dikontrol sepenuhnya oleh CSS.
+  // Kalimat lengkap yang mengandung kesalahan (Wajib)
+  sentence: "كَانَ الطَّالِبُ مُجْتَهِدٌ.",
+
+  // Array objek yang berisi pilihan kata yang bisa diklik (Wajib)
+  options: [
+    { key: 'A', text: "كَانَ" },
+    { key: "B", text: "الطَّالِبُ" },
+    { key: "C", text: "مُجْتَهِدٌ" },
+  ],
+
+  // Kunci dari opsi yang merupakan jawaban benar (Wajib)
+  correctAnswerKey: "C",
+
+  // Penjelasan yang muncul setelah soal dijawab (Opsional)
+  feedback: "Penjelasan mengapa jawaban tersebut salah dan apa bentuk yang benar."
+}
+```
+
+### Penjelasan Struktur Data
+
+- **`id`**: String (Wajib). ID unik untuk setiap soal.
+- **`sentence`**: String (Wajib). Kalimat lengkap yang akan ditampilkan. Komponen akan secara otomatis mencari kata-kata dari `options` di dalam string ini.
+- **`options`**: Array of Objects (Wajib). Setiap objek merepresentasikan satu pilihan yang bisa diklik.
+  - `key`: String unik untuk pilihan tersebut (misal: 'A', 'B').
+  - `text`: Teks kata yang akan dicari dalam `sentence` dan dijadikan tombol.
+- **`correctAnswerKey`**: String (Wajib). `key` dari pilihan yang benar.
+- **`feedback`**: String (Opsional). Umpan balik yang ditampilkan setelah pengguna menjawab.
+
+## Fitur Unggulan
+
+- **Render Cerdas**: Komponen secara otomatis memecah kalimat dan mengubah kata-kata dalam `options` menjadi tombol interaktif.
+- **Fokus Pengguna**: Dengan hanya menyorot kata-kata yang relevan, kuis ini membantu pengguna fokus pada analisis bagian kalimat yang penting.
+- **Umpan Balik Langsung**: Pengguna langsung mengetahui apakah jawabannya benar atau salah untuk setiap soal.
+- **Konteks Utuh**: Meskipun hanya beberapa kata yang interaktif, kalimat tetap ditampilkan secara utuh, menjaga konteks gramatikalnya.

@@ -1,82 +1,113 @@
 ---
-title: Implementasi Lanjutan Kuis I'rab
+title: 9. Kuis Analisis I'rab
+sidebar_label: Analisis I'rab
 ---
 
 import IrabAnalysisQuiz from '@site/src/components/IrabAnalysisQuiz';
 
-## Latihan Analisis I'rab Lanjutan
+## Deskripsi
 
-Ini adalah contoh lain dari implementasi komponen kuis analisis i'rab. Perhatikan bagaimana soal-soal di bawah ini menggunakan kaidah nahwu yang lebih spesifik, seperti *Asma'ul Khamsah* dan *Jamak Mu'annats Salim*.
+`IrabAnalysisQuiz` adalah komponen kuis tingkat lanjut yang dirancang untuk menguji pemahaman mendalam tentang *i'rab* (analisis gramatikal) dalam tata bahasa Arab. Pengguna ditantang untuk menganalisis kata-kata tertentu dalam sebuah kalimat.
 
-Komponen ini dirancang untuk menangani berbagai skenario soal dengan fleksibel.
+Untuk setiap kata yang dipilih, pengguna harus menentukan tiga aspek *i'rab*-nya: **Kedudukan (الموقع)**, **Keadaan (الحالة)**, dan **Alamat (العلامة)** melalui serangkaian menu dropdown. Komponen ini menggunakan format slider, menyajikan satu kalimat (soal) pada satu waktu untuk menjaga fokus.
 
-export const soalIrabLanjutan = [
+## Contoh Implementasi
+
+```jsx
+import IrabAnalysisQuiz from '@site/src/components/IrabAnalysisQuiz';
+
+const dataKuis = [
   {
-    id: 'q_lanjutan_1',
-    sentence: "كَافَأَتِ الْمُدِيْرَةُ الطَّالِبَاتِ الْمُجْتَهِدَاتِ.",
+    id: 'q_panjang_1',
+    sentence: "يَبْنِي الْمُهَنْدِسُوْنَ النَّشِيْطُوْنَ جِسْرًا كَبِيْرًا فَوْقَ النَّهْرِ لِتَسْهِيْلِ حَرَكَةِ النَّاسِ.",
     words: [
       {
-        key: 'ql1w1',
-        text: "الْمُدِيْرَةُ",
+        key: 'qp1w1',
+        text: "الْمُهَنْدِسُوْنَ",
         options: {
           kedudukan: ['Fa\'il', 'Maf\'ul Bih', 'Mubtada'],
           keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
-          alamat: ['Dhommah', 'Fathah', 'Kasrah'],
+          alamat: ['Dhommah', 'Waw', 'Alif'],
         },
         correctAnswer: {
           kedudukan: 'Fa\'il',
           keadaan: 'Marfu\'',
-          alamat: 'Dhommah',
+          alamat: 'Waw',
         }
       },
       {
-        key: 'ql1w2',
-        text: "الطَّالِبَاتِ",
+        key: 'qp1w2',
+        text: "جِسْرًا",
         options: {
-          kedudukan: ['Fa\'il', 'Maf\'ul Bih', 'Na\'at'],
+          kedudukan: ['Fa\'il', 'Maf\'ul Bih', 'Hal'],
           keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
           alamat: ['Dhommah', 'Fathah', 'Kasrah'],
         },
         correctAnswer: {
           kedudukan: 'Maf\'ul Bih',
           keadaan: 'Mansub',
+          alamat: 'Fathah',
+        }
+      },
+      {
+        key: 'qp1w3',
+        text: "النَّاسِ",
+        options: {
+          kedudukan: ['Isim Majrur', 'Mudhaf Ilaih', 'Na\'at'],
+          keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+          alamat: ['Dhommah', 'Fathah', 'Kasrah'],
+        },
+        correctAnswer: {
+          kedudukan: 'Mudhaf Ilaih',
+          keadaan: 'Majrur',
           alamat: 'Kasrah',
         }
       }
     ]
   },
-  // {
-  //   id: 'q_lanjutan_2',
-  //   sentence: "سَلَّمْتُ عَلَى أَخِيْكَ فِي الْمَدْرَسَةِ.",
-  //   words: [
-  //     {
-  //       key: 'ql2w1',
-  //       text: "أَخِيْكَ",
-  //       options: {
-  //         kedudukan: ['Isim Majrur', 'Mudhaf Ilaih', 'Fa\'il'],
-  //         keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
-  //         alamat: ['Kasrah', 'Ya\'', 'Fathah'],
-  //       },
-  //       correctAnswer: {
-  //         kedudukan: 'Isim Majrur',
-  //         keadaan: 'Majrur',
-  //         alamat: 'Ya\'',
-  //       }
-  //     }
-  //   ]
-  // }
+  {
+    id: 'q_panjang_2',
+    sentence: "إِنَّ الْمُؤْمِنِيْنَ الصَّادِقِيْنَ يَدْعُوْنَ رَبَّهُمْ بِأَدْعِيَةٍ مُخْتَلِفَةٍ فِي كُلِّ وَقْتٍ.",
+    words: [
+      {
+        key: 'qp2w1',
+        text: "الْمُؤْمِنِيْنَ",
+        options: {
+          kedudukan: ['Isim Inna', 'Khabar Inna', 'Fa\'il'],
+          keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+          alamat: ['Fathah', 'Ya\'', 'Kasrah'],
+        },
+        correctAnswer: {
+          kedudukan: 'Isim Inna',
+          keadaan: 'Mansub',
+          alamat: 'Ya\'',
+        }
+      },
+       {
+        key: 'qp2w2',
+        text: "الصَّادِقِيْنَ",
+        options: {
+          kedudukan: ['Na\'at', 'Hal', 'Tamyiz'],
+          keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+          alamat: ['Fathah', 'Ya\'', 'Kasrah'],
+        },
+        correctAnswer: {
+          kedudukan: 'Na\'at',
+          keadaan: 'Mansub',
+          alamat: 'Ya\'',
+        }
+      }
+    ]
+  }
 ];
 
 <IrabAnalysisQuiz
-  title="Latihan I'rab: Jamak & Asma'ul Khamsah"
-  questions={soalIrabLanjutan}
+  title="Latihan Analisis Kalimat Panjang"
+  questions={dataKuis}
 />
+```
 
-## Latihan Analisis Irab: Kalimat Kompleks
-
-Selamat datang di latihan analisis i'rab tingkat lanjut. Soal-soal berikut menggunakan kalimat yang lebih panjang dan majemuk. Anda harus menyelesaikan analisis pada satu soal sebelum dapat melanjutkan ke soal berikutnya.
-
-Klik kata yang bergaris bawah, lalu tentukan i'rab-nya dengan mengisi ketiga pilihan yang muncul.
+### Hasil
 
 export const soalKalimatPanjang = [
   {
@@ -181,3 +212,63 @@ export const soalKalimatPanjang = [
   title="Latihan Analisis Kalimat Panjang"
   questions={soalKalimatPanjang}
 />
+
+---
+
+## Properti (Props)
+
+| Properti | Tipe | Wajib | Default | Deskripsi |
+| :--- | :--- | :--- | :--- | :--- |
+| `title` | `String` | Tidak | - | Judul yang akan ditampilkan di bagian atas kuis. |
+| `questions` | `Array` | Ya | - | Sebuah array berisi objek-objek pertanyaan untuk kuis. |
+
+---
+
+## Struktur Data `questions`
+
+Setiap elemen dalam array `questions` adalah sebuah objek soal yang memiliki struktur sebagai berikut:
+
+```js
+{
+  // ID unik untuk soal (Wajib)
+  id: 'q_panjang_1',
+
+  // Kalimat lengkap yang akan ditampilkan (Wajib)
+  sentence: "...",
+
+  // Array berisi kata-kata dari kalimat di atas yang akan dianalisis (Wajib)
+  words: [
+    {
+      // Kunci unik untuk kata ini (Wajib)
+      key: 'qp1w1',
+
+      // Teks kata yang akan dicari dalam `sentence` dan dijadikan tombol (Wajib)
+      text: "الْمُهَنْدِسُوْنَ",
+
+      // Objek berisi pilihan dropdown untuk setiap aspek i'rab (Wajib)
+      options: {
+        kedudukan: ['Fa\'il', 'Maf\'ul Bih', 'Mubtada'],
+        keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+        alamat: ['Dhommah', 'Waw', 'Alif'],
+      },
+
+      // Objek berisi jawaban yang benar untuk setiap aspek (Wajib)
+      correctAnswer: {
+        kedudukan: 'Fa\'il',
+        keadaan: 'Marfu\'',
+        alamat: 'Waw',
+      }
+    },
+    // ...objek kata lainnya
+  ]
+}
+```
+
+## Fitur Unggulan
+
+- **Analisis Detail**: Memungkinkan pengujian pada tiga tingkat *i'rab* sekaligus untuk satu kata.
+- **Format Slider**: Kuis disajikan soal per soal, membantu pengguna fokus pada satu kalimat kompleks pada satu waktu.
+- **Navigasi Terpandu**: Pengguna harus menyelesaikan semua analisis kata dalam satu soal sebelum bisa lanjut ke soal berikutnya.
+- **Umpan Balik per Kata**: Pengguna dapat memeriksa jawabannya untuk setiap kata secara individual sebelum menyelesaikan seluruh soal.
+
+```

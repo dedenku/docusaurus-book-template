@@ -1,37 +1,114 @@
-import Mermaid from '@theme/Mermaid';
-
 ---
 sidebar_position: 1
 ---
 
-# Pembelajaran Ilmu Nahwu
+# Panduan Menggunakan Mermaid
 
-## Struktur Dasar
+Mermaid adalah sebuah *tool* berbasis JavaScript yang memungkinkan Anda membuat diagram dan visualisasi (seperti diagram alir, urutan, atau Gantt chart) menggunakan sintaksis teks yang mirip dengan Markdown.
+
+Docusaurus memiliki dukungan bawaan untuk Mermaid, sehingga Anda bisa langsung menyematkan diagram di dalam file Markdown atau MDX Anda.
+
+## Instalasi dan Konfigurasi
+
+Kabar baiknya, jika Anda menggunakan tema klasik Docusaurus (`@docusaurus/theme-classic`), Mermaid sudah terpasang dan aktif secara default. Anda tidak perlu melakukan instalasi tambahan.
+
+Namun, jika Anda tidak menggunakan tema klasik atau ingin memastikan konfigurasinya benar, ikuti langkah berikut:
+
+1.  **Instal tema Mermaid** (jika belum ada):
+
+    ```bash
+    npm install @docusaurus/theme-mermaid
+    ```
+
+2.  **Aktifkan di `docusaurus.config.js`**:
+    Pastikan tema dan konfigurasi markdown sudah ditambahkan di file konfigurasi Anda.
+
+    ```js title="docusaurus.config.js"
+    module.exports = {
+      // ...konfigurasi lainnya
+      themes: ['@docusaurus/theme-mermaid'],
+      markdown: {
+        mermaid: true,
+      },
+    };
+    ```
+
+## Cara Penggunaan Dasar
+
+Untuk membuat diagram, cukup buat sebuah blok kode dan tentukan bahasanya sebagai `mermaid`.
+
+````md
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+````
+
+## Contoh Diagram
+
+Berikut adalah beberapa contoh diagram yang bisa Anda buat.
+
+### 1. Diagram Alir (Flowchart)
+
+Anda bisa mengontrol arah diagram dengan `graph LR` (Left to Right) atau `graph RL` (Right to Left).
+
+**Contoh Kiri ke Kanan (Teks Latin)**
 
 ```mermaid
-graph TD
-    A[علم النحو] --> B[الكلمة]
-    A --> C[الجملة]
-    B --> D[الاسم]
-    B --> E[الفعل]
-    B --> F[الحرف]
-    
-    style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style C fill:#e8f5e8
+graph LR
+    A[Start] --> B(Process Data)
+    B --> C{Make a Decision}
+    C -->|Yes| D[End Process 1]
+    C -->|No| E[End Process 2]
 ```
 
-## I'rob dalam Nahwu
+**Contoh Kanan ke Kiri (Teks Arab)**
+
+Untuk teks Arab, gunakan `graph RL` agar alurnya sesuai.
 
 ```mermaid
-flowchart LR
-    A[الإعراب] --> B[الرفع]
-    A --> C[النصب]
-    A --> D[الجر]
-    A --> E[الجزم]
-    
-    B --> B1[الضمة]
-    B --> B2[الواو]
-    C --> C1[الفتحة]
-    C --> C2[الألف]
+graph RL
+    A[البداية] --> B(معالجة البيانات)
+    B --> C{اتخاذ القرار}
+    C -->|نعم| D[نهاية المسار ١]
+    C -->|لا| E[نهاية المسار ٢]
+```
+
+### 2. Peta Pikiran (Mind Map)
+
+Mermaid juga mendukung pembuatan *mind map* untuk memvisualisasikan ide secara hierarkis.
+
+**Contoh Kiri ke Kanan (Teks Latin)**
+
+```mermaid
+mindmap
+  root((Docusaurus))
+    Features
+      MDX
+      Versioning
+      i18n
+    Plugins
+      Search
+      PWA
+      Mermaid Theme
+```
+
+**Contoh Kanan ke Kiri (Teks Arab)**
+
+Untuk *mind map*, arah teks akan mengikuti pengaturan umum dari tema situs Anda. Jika tema Anda mendukung RTL, teks akan ditampilkan dengan benar.
+
+```mermaid
+mindmap
+  root((دوكوسورس))
+    مميزات
+      MDX
+      إدارة الإصدارات
+      تدويل (i18n)
+    إضافات
+      بحث
+      PWA
+      ثيم Mermaid
 ```

@@ -1,6 +1,5 @@
 .quizContainer {
   composes: quiz-container from global;
-  overflow: hidden;
 }
 
 .header {
@@ -15,6 +14,7 @@
 
 .sliderContainer {
   position: relative;
+  overflow: hidden; /* DIPINDAHKAN kesini agar slider berfungsi */
 }
 .slider {
   display: flex;

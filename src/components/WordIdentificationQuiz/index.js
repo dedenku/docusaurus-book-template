@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Award, RotateCcw, Lightbulb } from 'lucide-react';
+import { Award, RotateCcw, Lightbulb, CheckCircle2, XCircle, AlertTriangle } from 'lucide-react';
 import styles from './WordIdentificationQuiz.module.css';
 
 // -- Komponen Utama Kuis --
@@ -23,7 +23,6 @@ const WordIdentificationQuiz = ({ title, questionParts, correctWords, feedback }
         });
     };
 
-    // DIUBAH: useMemo sekarang juga menghitung statistik detail
     const { score, totalPossible, stats } = useMemo(() => {
         const defaultStats = { score: 0, totalPossible: correctWords.length, stats: { correct: 0, incorrect: 0, missed: 0 } };
         if (!isSubmitted) return defaultStats;
@@ -58,16 +57,17 @@ const WordIdentificationQuiz = ({ title, questionParts, correctWords, feedback }
     const getWordClass = (word, index) => {
         const isSelected = selectedIndices.has(index);
         const isCorrect = correctWords.includes(word);
+        const classes = [styles.clickableWord];
 
         if (isSubmitted) {
-            if (isSelected && isCorrect) return styles.correctSelection;
-            if (isSelected && !isCorrect) return styles.incorrectSelection;
-            if (!isSelected && isCorrect) return styles.missedAnswer;
+            if (isSelected && isCorrect) classes.push(styles.correctSelection);
+            else if (isSelected && !isCorrect) classes.push(styles.incorrectSelection);
+            else if (!isSelected && isCorrect) classes.push(styles.missedAnswer);
+        } else if (isSelected) {
+            classes.push(styles.selected);
         }
 
-        if (isSelected) return styles.selected;
-
-        return styles.clickableWord;
+        return classes.join(' ');
     };
 
     const handleSubmit = () => {
@@ -83,7 +83,7 @@ const WordIdentificationQuiz = ({ title, questionParts, correctWords, feedback }
     };
 
     return (
-        <div className={styles.quizWrapper} ref={quizContainerRef}>
+        <div className={styles.quizContainer} ref={quizContainerRef}>
             <div className={styles.header}>
                 <h2 className={styles.title}>{title}</h2>
             </div>
@@ -115,17 +115,16 @@ const WordIdentificationQuiz = ({ title, questionParts, correctWords, feedback }
                         Skor dihitung berdasarkan jawaban benar dikurangi jawaban salah.
                     </p>
                     <div className={styles.legend}>
-                        {/* DIUBAH: Menampilkan jumlah hitungan untuk setiap kategori */}
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.correctIcon}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
+                        <span className={styles.legendItem}>
+                            <CheckCircle2 size={16} className="quiz-correct" />
                             Jawaban Benar ({stats.correct})
                         </span>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.incorrectIcon}><circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" /></svg>
+                        <span className={styles.legendItem}>
+                            <XCircle size={16} className="quiz-incorrect" />
                             Jawaban Salah ({stats.incorrect})
                         </span>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.missedIcon}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
+                        <span className={styles.legendItem}>
+                            <AlertTriangle size={16} className="quiz-good" />
                             Jawaban Terlewat ({stats.missed})
                         </span>
                     </div>
@@ -142,12 +141,12 @@ const WordIdentificationQuiz = ({ title, questionParts, correctWords, feedback }
             <div className={styles.actions}>
                 {!isSubmitted ? (
                     selectedIndices.size > 0 && (
-                        <button onClick={handleSubmit} className={styles.mainButton}>
+                        <button onClick={handleSubmit} className={styles.primaryButton}>
                             Periksa Jawaban
                         </button>
                     )
                 ) : (
-                    <button onClick={handleReset} className={`${styles.mainButton} ${styles.resetButton}`}>
+                    <button onClick={handleReset} className={styles.secondaryButton}>
                         <RotateCcw size={18} /> Ulangi Kuis
                     </button>
                 )}

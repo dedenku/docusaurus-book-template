@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Check, X, AlertTriangle, ChevronLeft, ChevronRight, Award, RotateCcw } from 'lucide-react';
+import { Check, X, AlertTriangle, ChevronLeft, ChevronRight, Award, RotateCcw, Lightbulb } from 'lucide-react';
 import styles from './IrabAnalysisQuiz.module.css';
 
 // Komponen Dropdown Kustom
 const IrabSelect = ({ label, options, value, onChange, disabled, isChecked, isCorrect }) => {
     const selectClasses = [styles.irabSelect];
     if (isChecked) {
-        selectClasses.push(isCorrect ? styles.correct : styles.incorrect);
+        selectClasses.push(isCorrect ? styles.selectCorrect : styles.selectIncorrect);
     }
 
     return (
@@ -60,13 +60,18 @@ const AnalysisPanel = ({ word, userAnswer, onAnswerChange, onCheckAnswer, isChec
     const getFeedback = () => {
         switch (status) {
             case 'correct':
-                return { icon: <Check size={18} />, text: "Analisis Anda benar!", style: styles.feedbackCorrect };
+                return { icon: <Check size={18} />, text: "Analisis Anda benar!", type: 'feedbackCorrect' };
             case 'partial':
+                return {
+                    icon: <AlertTriangle size={18} />,
+                    text: `Jawaban benar: ${word.correctAnswer.kedudukan}, ${word.correctAnswer.keadaan}, ${word.correctAnswer.alamat}.`,
+                    type: 'feedbackPartial'
+                };
             case 'incorrect':
                 return {
-                    icon: status === 'partial' ? <AlertTriangle size={18} /> : <X size={18} />,
+                    icon: <X size={18} />,
                     text: `Jawaban benar: ${word.correctAnswer.kedudukan}, ${word.correctAnswer.keadaan}, ${word.correctAnswer.alamat}.`,
-                    style: status === 'partial' ? styles.feedbackPartial : styles.feedbackIncorrect
+                    type: 'feedbackIncorrect'
                 };
             default:
                 return null;
@@ -116,9 +121,9 @@ const AnalysisPanel = ({ word, userAnswer, onAnswerChange, onCheckAnswer, isChec
                 </button>
             ) : (
                 feedback && (
-                    <div className={`${styles.feedbackBox} ${feedback.style}`}>
-                        {feedback.icon}
-                        <span>{feedback.text}</span>
+                    <div className={`${styles.feedbackBox} ${styles[feedback.type]}`}> 
+                         <div className={styles.feedbackHeader}>{feedback.icon} <strong>Penjelasan</strong></div>
+                        <div className={styles.feedbackContent}>{feedback.text}</div>
                     </div>
                 )
             )}
@@ -133,7 +138,7 @@ const QuestionCard = ({ question, userAnswers, onAnswerUpdate, onCheckWord }) =>
     const createSentence = () => {
         let currentSentence = question.sentence;
         question.words.forEach((word, i) => {
-            currentSentence = currentSentence.replace(new RegExp(word.text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g'), `__WORD_${i}__`);
+            currentSentence = currentSentence.replace(new RegExp(word.text.replace(/[-\/\\^$*+?.()|[\\]{}]/g, '\\$&'), 'g'), `__WORD_${i}__`);
         });
 
         return currentSentence.split(/(__WORD_\d+__)/g).map((part, index) => {
@@ -167,7 +172,7 @@ const QuestionCard = ({ question, userAnswers, onAnswerUpdate, onCheckWord }) =>
 
     return (
         <div className={styles.questionCard}>
-            <p className={styles.sentenceContainer}>{createSentence()}</p>
+            <div className={styles.sentenceContainer}>{createSentence()}</div>
             {activeWordData && (
                 <AnalysisPanel
                     word={activeWordData}
@@ -242,7 +247,6 @@ const IrabAnalysisQuiz = ({ questions, title }) => {
 
     const isCurrentQuestionCompleted = questionStatus[currentQuestionIndex] === 'completed';
 
-    // BARU: Logika untuk menentukan apakah seluruh kuis (semua soal) telah selesai dikerjakan
     const allQuestionsCompleted = useMemo(() => {
         return questionStatus.every(status => status === 'completed');
     }, [questionStatus]);
@@ -266,20 +270,18 @@ const IrabAnalysisQuiz = ({ questions, title }) => {
     };
 
     return (
-        <div className={styles.quizWrapper}>
+        <div className={styles.quizContainer}>
             <div className={styles.header}>
                 <h2 className={styles.title}>{title}</h2>
                 {isQuizFinished && <p className={styles.scoreInfo}>Skor Akhir: {score} / {totalWordsToAnalyze}</p>}
             </div>
 
-            {isQuizFinished && (
+            {isQuizFinished ? (
                 <div className={styles.resultsCard}>
                     <Award size={48} className={styles.awardIcon} />
                     <p className={styles.scoreMessage}>Anda menganalisis dengan benar {score} dari {totalWordsToAnalyze} kata.</p>
                 </div>
-            )}
-
-            {!isQuizFinished ? (
+            ) : (
                 <>
                     <div className={styles.quizBody}>
                         <button
@@ -305,7 +307,6 @@ const IrabAnalysisQuiz = ({ questions, title }) => {
                             <ChevronRight size={24} />
                         </button>
                     </div>
-                    {/* Tampilkan indikator jika soal lebih dari satu */}
                     {questions.length > 1 && (
                         <QuestionIndicator
                             count={questions.length}
@@ -315,19 +316,17 @@ const IrabAnalysisQuiz = ({ questions, title }) => {
                         />
                     )}
                 </>
-            ) : null}
+            )}
 
             <div className={styles.actions}>
-                {/* DIUBAH: Logika tombol disesuaikan */}
                 {!isQuizFinished ? (
-                    // Tampilkan tombol "Lihat Skor" HANYA jika semua soal sudah selesai
                     allQuestionsCompleted && (
-                        <button onClick={handleFinishQuiz} className={styles.mainButton}>
+                        <button onClick={handleFinishQuiz} className={styles.primaryButton}>
                             Lihat Skor
                         </button>
                     )
                 ) : (
-                    <button onClick={handleReset} className={`${styles.mainButton} ${styles.resetButton}`}>
+                    <button onClick={handleReset} className={styles.secondaryButton}>
                         <RotateCcw size={18} /> Ulangi
                     </button>
                 )}
@@ -336,7 +335,6 @@ const IrabAnalysisQuiz = ({ questions, title }) => {
     );
 };
 
-// PropTypes & DefaultProps
 IrabAnalysisQuiz.propTypes = {
     title: PropTypes.string,
     questions: PropTypes.arrayOf(PropTypes.shape({
@@ -354,4 +352,3 @@ IrabAnalysisQuiz.defaultProps = {
 };
 
 export default IrabAnalysisQuiz;
-
