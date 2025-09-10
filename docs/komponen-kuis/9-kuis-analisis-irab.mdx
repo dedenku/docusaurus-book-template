@@ -1,0 +1,183 @@
+---
+title: Implementasi Lanjutan Kuis I'rab
+---
+
+import IrabAnalysisQuiz from '@site/src/components/IrabAnalysisQuiz';
+
+## Latihan Analisis I'rab Lanjutan
+
+Ini adalah contoh lain dari implementasi komponen kuis analisis i'rab. Perhatikan bagaimana soal-soal di bawah ini menggunakan kaidah nahwu yang lebih spesifik, seperti *Asma'ul Khamsah* dan *Jamak Mu'annats Salim*.
+
+Komponen ini dirancang untuk menangani berbagai skenario soal dengan fleksibel.
+
+export const soalIrabLanjutan = [
+  {
+    id: 'q_lanjutan_1',
+    sentence: "كَافَأَتِ الْمُدِيْرَةُ الطَّالِبَاتِ الْمُجْتَهِدَاتِ.",
+    words: [
+      {
+        key: 'ql1w1',
+        text: "الْمُدِيْرَةُ",
+        options: {
+          kedudukan: ['Fa\'il', 'Maf\'ul Bih', 'Mubtada'],
+          keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+          alamat: ['Dhommah', 'Fathah', 'Kasrah'],
+        },
+        correctAnswer: {
+          kedudukan: 'Fa\'il',
+          keadaan: 'Marfu\'',
+          alamat: 'Dhommah',
+        }
+      },
+      {
+        key: 'ql1w2',
+        text: "الطَّالِبَاتِ",
+        options: {
+          kedudukan: ['Fa\'il', 'Maf\'ul Bih', 'Na\'at'],
+          keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+          alamat: ['Dhommah', 'Fathah', 'Kasrah'],
+        },
+        correctAnswer: {
+          kedudukan: 'Maf\'ul Bih',
+          keadaan: 'Mansub',
+          alamat: 'Kasrah',
+        }
+      }
+    ]
+  },
+  // {
+  //   id: 'q_lanjutan_2',
+  //   sentence: "سَلَّمْتُ عَلَى أَخِيْكَ فِي الْمَدْرَسَةِ.",
+  //   words: [
+  //     {
+  //       key: 'ql2w1',
+  //       text: "أَخِيْكَ",
+  //       options: {
+  //         kedudukan: ['Isim Majrur', 'Mudhaf Ilaih', 'Fa\'il'],
+  //         keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+  //         alamat: ['Kasrah', 'Ya\'', 'Fathah'],
+  //       },
+  //       correctAnswer: {
+  //         kedudukan: 'Isim Majrur',
+  //         keadaan: 'Majrur',
+  //         alamat: 'Ya\'',
+  //       }
+  //     }
+  //   ]
+  // }
+];
+
+<IrabAnalysisQuiz
+  title="Latihan I'rab: Jamak & Asma'ul Khamsah"
+  questions={soalIrabLanjutan}
+/>
+
+## Latihan Analisis Irab: Kalimat Kompleks
+
+Selamat datang di latihan analisis i'rab tingkat lanjut. Soal-soal berikut menggunakan kalimat yang lebih panjang dan majemuk. Anda harus menyelesaikan analisis pada satu soal sebelum dapat melanjutkan ke soal berikutnya.
+
+Klik kata yang bergaris bawah, lalu tentukan i'rab-nya dengan mengisi ketiga pilihan yang muncul.
+
+export const soalKalimatPanjang = [
+  {
+    id: 'q_panjang_1',
+    sentence: "يَبْنِي الْمُهَنْدِسُوْنَ النَّشِيْطُوْنَ جِسْرًا كَبِيْرًا فَوْقَ النَّهْرِ لِتَسْهِيْلِ حَرَكَةِ النَّاسِ.",
+    words: [
+      {
+        key: 'qp1w1',
+        text: "الْمُهَنْدِسُوْنَ",
+        options: {
+          kedudukan: ['Fa\'il', 'Maf\'ul Bih', 'Mubtada'],
+          keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+          alamat: ['Dhommah', 'Waw', 'Alif'],
+        },
+        correctAnswer: {
+          kedudukan: 'Fa\'il',
+          keadaan: 'Marfu\'',
+          alamat: 'Waw',
+        }
+      },
+      {
+        key: 'qp1w2',
+        text: "جِسْرًا",
+        options: {
+          kedudukan: ['Fa\'il', 'Maf\'ul Bih', 'Hal'],
+          keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+          alamat: ['Dhommah', 'Fathah', 'Kasrah'],
+        },
+        correctAnswer: {
+          kedudukan: 'Maf\'ul Bih',
+          keadaan: 'Mansub',
+          alamat: 'Fathah',
+        }
+      },
+      {
+        key: 'qp1w3',
+        text: "النَّاسِ",
+        options: {
+          kedudukan: ['Isim Majrur', 'Mudhaf Ilaih', 'Na\'at'],
+          keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+          alamat: ['Dhommah', 'Fathah', 'Kasrah'],
+        },
+        correctAnswer: {
+          kedudukan: 'Mudhaf Ilaih',
+          keadaan: 'Majrur',
+          alamat: 'Kasrah',
+        }
+      }
+    ]
+  },
+  {
+    id: 'q_panjang_2',
+    sentence: "إِنَّ الْمُؤْمِنِيْنَ الصَّادِقِيْنَ يَدْعُوْنَ رَبَّهُمْ بِأَدْعِيَةٍ مُخْتَلِفَةٍ فِي كُلِّ وَقْتٍ.",
+    words: [
+      {
+        key: 'qp2w1',
+        text: "الْمُؤْمِنِيْنَ",
+        options: {
+          kedudukan: ['Isim Inna', 'Khabar Inna', 'Fa\'il'],
+          keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+          alamat: ['Fathah', 'Ya\'', 'Kasrah'],
+        },
+        correctAnswer: {
+          kedudukan: 'Isim Inna',
+          keadaan: 'Mansub',
+          alamat: 'Ya\'',
+        }
+      },
+       {
+        key: 'qp2w2',
+        text: "الصَّادِقِيْنَ",
+        options: {
+          kedudukan: ['Na\'at', 'Hal', 'Tamyiz'],
+          keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+          alamat: ['Fathah', 'Ya\'', 'Kasrah'],
+        },
+        correctAnswer: {
+          kedudukan: 'Na\'at',
+          keadaan: 'Mansub',
+          alamat: 'Ya\'',
+        }
+      },
+      {
+        key: 'qp2w3',
+        text: "رَبَّهُمْ",
+        options: {
+          kedudukan: ['Fa\'il', 'Maf\'ul Bih', 'Mubtada'],
+          keadaan: ['Marfu\'', 'Mansub', 'Majrur'],
+          alamat: ['Dhommah', 'Fathah', 'Kasrah'],
+        },
+        correctAnswer: {
+          kedudukan: 'Maf\'ul Bih',
+          keadaan: 'Mansub',
+          alamat: 'Fathah',
+        }
+      }
+    ]
+  }
+];
+
+<IrabAnalysisQuiz
+  title="Latihan Analisis Kalimat Panjang"
+  questions={soalKalimatPanjang}
+/>

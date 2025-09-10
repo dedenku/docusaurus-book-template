@@ -1,0 +1,64 @@
+---
+title: Latihan Identifikasi Fi'il
+---
+
+import WordIdentificationQuiz from '@site/src/components/WordIdentificationQuiz';
+
+## Latihan: Temukan Semua Fi'il (Kata Kerja)
+
+Selamat datang di latihan identifikasi. Tugas Anda adalah membaca paragraf di bawah ini, lalu klik pada setiap kata yang termasuk kategori **Fi'il** (kata kerja).
+
+Anda dapat memilih beberapa kata sekaligus. Kata yang dipilih akan ditandai. Jika salah pilih, klik kembali kata tersebut untuk membatalkannya. Setelah selesai, periksa jawaban Anda.
+
+export const soalFiil = [
+  { text: "قَامَ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "الْمُسْلِمُوْنَ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "لِأَدَاءِ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "صَلَاةِ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "الْفَجْرِ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "فِي", isWord: true },
+  { text: " ", isWord: false },
+  { text: "الْمَسْجِدِ", isWord: true },
+  { text: ". ", isWord: false },
+  { text: "بَعْدَ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "ذَلِكَ", isWord: true },
+  { text: ",", isWord: false },
+  { text: " ", isWord: false },
+  { text: "قَرَأَ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "أَحَدُهُمْ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "الْقُرْآنَ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "بِصَوْتٍ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "جَمِيْلٍ", isWord: true },
+  { text: ", ", isWord: false },
+  { text: "وَالْبَاقُوْنَ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "يَسْتَمِعُوْنَ", isWord: true },
+  { text: " ", isWord: false },
+  { text: "بِخُشُوْعٍ", isWord: true },
+  { text: ".", isWord: false },
+];
+
+export const jawabanBenarFiil = [
+  "قَامَ",
+  "قَرَأَ",
+  "يَسْتَمِعُوْنَ"
+];
+
+export const umpanBalikFiil = "Fi'il adalah kata yang menunjukkan suatu pekerjaan atau peristiwa pada waktu tertentu. Dalam paragraf ini, kata kerja yang ada adalah 'قَامَ' (telah berdiri), 'قَرَأَ' (telah membaca), dan 'يَسْتَمِعُوْنَ' (mereka sedang mendengarkan).";
+
+<WordIdentificationQuiz
+  title="Identifikasi Fi'il dalam Paragraf"
+  questionParts={soalFiil}
+  correctWords={jawabanBenarFiil}
+  feedback={umpanBalikFiil}
+/>
