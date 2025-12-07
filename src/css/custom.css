@@ -4,6 +4,10 @@
  * work well for content-centric websites.
  */
 
+@import "tailwindcss";
+
+@custom-variant dark (&:is([data-theme="dark"] *));
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #2e8555;
@@ -18,7 +22,7 @@
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
@@ -139,7 +143,7 @@
   direction: rtl;
 }
 
-[data-theme='dark'] .quiz-arabic-text {
+[data-theme="dark"] .quiz-arabic-text {
   background: var(--ifm-color-emphasis-200);
   border-color: var(--ifm-color-emphasis-400);
 }
@@ -251,13 +255,16 @@
 }
 
 /* --- Status States --- */
-.quiz-correct, .quiz-score-display--excellent {
+.quiz-correct,
+.quiz-score-display--excellent {
   color: var(--ifm-color-success) !important;
 }
-.quiz-good, .quiz-score-display--good {
+.quiz-good,
+.quiz-score-display--good {
   color: var(--ifm-color-warning) !important;
 }
-.quiz-incorrect, .quiz-score-display--needs-improvement {
+.quiz-incorrect,
+.quiz-score-display--needs-improvement {
   color: var(--ifm-color-danger) !important;
 }
 
@@ -298,7 +305,7 @@
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
@@ -372,7 +379,7 @@
   background: var(--ifm-color-emphasis-100);
   border: 1px solid var(--ifm-color-emphasis-200);
 }
-[data-theme='dark'] .quiz-arabic-sentence-container {
+[data-theme="dark"] .quiz-arabic-sentence-container {
   background: var(--ifm-color-emphasis-200);
   border-color: var(--ifm-color-emphasis-300);
 }
@@ -590,13 +597,16 @@
 }
 
 /* --- Status States --- */
-.quiz-correct, .quiz-score-display--excellent {
+.quiz-correct,
+.quiz-score-display--excellent {
   color: var(--ifm-color-success) !important;
 }
-.quiz-good, .quiz-score-display--good {
+.quiz-good,
+.quiz-score-display--good {
   color: var(--ifm-color-warning) !important;
 }
-.quiz-incorrect, .quiz-score-display--needs-improvement {
+.quiz-incorrect,
+.quiz-score-display--needs-improvement {
   color: var(--ifm-color-danger) !important;
 }
 
@@ -642,11 +652,17 @@
 }
 
 @keyframes quiz-shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
 }
-
 
 /* --- Animations --- */
 @keyframes quiz-fade-in {
@@ -672,7 +688,14 @@
 }
 
 @keyframes quiz-shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
 }
